@@ -116,7 +116,7 @@ public class Logeo_admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      NewJFrame BDD= new NewJFrame();         
+      SQL_FORM BDD= new SQL_FORM();         
       BDD.setVisible(true);  // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
