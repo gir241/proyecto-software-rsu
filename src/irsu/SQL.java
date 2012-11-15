@@ -22,7 +22,8 @@ public class SQL{
         st.executeUpdate("CREATE DATABASE rsu_inventario");
          }  
       catch (SQLException s){
-      JOptionPane.showMessageDialog(frame,s);
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error");
     }
   }
         catch (Exception e){
@@ -36,7 +37,7 @@ public class SQL{
   
   
   }
-}
+
 
 
 /**
