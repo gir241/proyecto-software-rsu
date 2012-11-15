@@ -102,7 +102,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Rut de usuario:"/>
+        <Property name="text" type="java.lang.String" value="Run de usuario:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">

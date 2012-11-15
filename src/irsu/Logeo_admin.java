@@ -44,7 +44,7 @@ public class Logeo_admin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("iRSU");
 
-        jLabel3.setText("Rut de usuario:");
+        jLabel3.setText("Run de usuario:");
 
         jLabel4.setText("Contraseña:");
 
