@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package irsu;
+import org.jdesktop.layout.GroupLayout;
 
 /**
  *
