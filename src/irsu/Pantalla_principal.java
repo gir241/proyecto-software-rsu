@@ -28,7 +28,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        crear_admin = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,7 +42,12 @@ public class Pantalla_principal extends javax.swing.JFrame {
 
         jButton2.setText("Inventario");
 
-        jButton3.setText("Crear Admin");
+        crear_admin.setText("Crear Admin");
+        crear_admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crear_adminActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Opciones Principales");
@@ -58,7 +63,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)))
+                            .addComponent(crear_admin, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addComponent(jLabel1)))
@@ -70,12 +75,12 @@ public class Pantalla_principal extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addGap(53, 53, 53)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(crear_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -88,6 +93,13 @@ public class Pantalla_principal extends javax.swing.JFrame {
         log.setVisible(true); 
         Pantalla_principal.this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void crear_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crear_adminActionPerformed
+        // TODO add your handling code here:
+        Crear_admin ca = new Crear_admin();
+        ca.setVisible(true);
+        Pantalla_principal.this.dispose();
+    }//GEN-LAST:event_crear_adminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,9 +136,9 @@ public class Pantalla_principal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton crear_admin;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
