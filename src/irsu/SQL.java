@@ -20,20 +20,20 @@ public class SQL{
                 "alert", JOptionPane.OK_OPTION);
          }  
       catch (SQLException s){
-<<<<<<< HEAD
+
           SQL_FORM error = new SQL_FORM();
       JOptionPane.showMessageDialog(error,"error");
-=======
-        SQL_FORM error = new SQL_FORM();
+
+        //SQL_FORM error = new SQL_FORM();
       JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
->>>>>>> b90528065a5a813318bc8b8c03268ec8a0f7b54e
+
     }
   }
         catch (Exception e){
         e.printStackTrace();
     }
    }
-<<<<<<< HEAD
+
   
  
   
@@ -107,6 +107,4 @@ public class SQL{
         }
 }
   */
-=======
-}
->>>>>>> b90528065a5a813318bc8b8c03268ec8a0f7b54e
+

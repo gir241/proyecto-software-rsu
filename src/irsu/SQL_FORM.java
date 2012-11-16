@@ -57,12 +57,10 @@ public class SQL_FORM extends javax.swing.JFrame {
         jButton1.setText("Cargar");
 
         jButton2.setText("Limpiar");
-
-<<<<<<< HEAD
         jButton3.setText("jButton3");
-=======
+
         jButton3.setText("Crear BDD");
->>>>>>> b90528065a5a813318bc8b8c03268ec8a0f7b54e
+
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -112,15 +110,15 @@ public class SQL_FORM extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         SQL sql = new SQL();
-<<<<<<< HEAD
+
         //sql.CrearBDD();
         SQL_FORM error = new SQL_FORM();
       JOptionPane.showMessageDialog(error,"error");
         
         // TODO add your handling code here:
-=======
+
         sql.CrearBDD();// TODO add your handling code here:
->>>>>>> b90528065a5a813318bc8b8c03268ec8a0f7b54e
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
