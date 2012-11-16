@@ -12,7 +12,7 @@ public class SQL{
     try{
          Class.forName("com.mysql.jdbc.Driver").newInstance();
          con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/rsu","rsu","rsu");
+         ("jdbc:mysql://localhost/","root","inforsu");
       try{
         Statement st = con.createStatement();
         st.executeUpdate("CREATE DATABASE rsu_inventario");
