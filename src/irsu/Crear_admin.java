@@ -30,7 +30,7 @@ public class Crear_admin extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jTextField_Telefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -39,25 +39,25 @@ public class Crear_admin extends javax.swing.JFrame {
         dv = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        jTextField_Celular = new javax.swing.JTextField();
+        jTextField_email = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButton_Guardar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         rud = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
-        jComboBox4 = new javax.swing.JComboBox();
-        jTextField4 = new javax.swing.JTextField();
+        jTextField_Nombres = new javax.swing.JTextField();
+        jTextField_Apellidos = new javax.swing.JTextField();
+        jComboBox_Actividad = new javax.swing.JComboBox();
+        jComboBox_Carrera = new javax.swing.JComboBox();
+        jComboBox_Ciudad = new javax.swing.JComboBox();
+        jComboBox_Comuna = new javax.swing.JComboBox();
+        jTextField_Direccion = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        jTextField_Contraseña = new javax.swing.JTextField();
+        jTextField_RepContraseña = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,6 +67,12 @@ public class Crear_admin extends javax.swing.JFrame {
         jLabel15.setText("email:");
 
         jLabel5.setText("Ciudad:");
+
+        jTextField_Telefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_TelefonoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("Carrera:");
 
@@ -78,10 +84,36 @@ public class Crear_admin extends javax.swing.JFrame {
 
         jLabel4.setText("Run:");
 
+        dv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dvActionPerformed(evt);
+            }
+        });
+        dv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dvKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dvKeyTyped(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("iRSU");
 
         jLabel6.setText("Informatica Responsabilidad Social Universitaria");
+
+        jTextField_Celular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_CelularKeyTyped(evt);
+            }
+        });
+
+        jTextField_email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_emailKeyReleased(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Registro de administrador:");
@@ -90,26 +122,67 @@ public class Crear_admin extends javax.swing.JFrame {
 
         jLabel9.setText("Actividad:");
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Guardar.setText("Guardar");
+        jButton_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_GuardarActionPerformed(evt);
             }
         });
 
         jLabel11.setText("Comuna:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Estudiante ", "Profesor" }));
+        rud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rudActionPerformed(evt);
+            }
+        });
+        rud.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rudKeyTyped(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21030", "21041" }));
+        jTextField_Nombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_NombresKeyReleased(evt);
+            }
+        });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jTextField_Apellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_ApellidosKeyReleased(evt);
+            }
+        });
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_Actividad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Estudiante ", "Profesor" }));
+
+        jComboBox_Carrera.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21030", "21041" }));
+
+        jComboBox_Ciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBox_Comuna.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextField_Direccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_DireccionKeyReleased(evt);
+            }
+        });
 
         jLabel16.setText("Contraseña:");
 
         jLabel17.setText("Repetir contraseña:");
+
+        jTextField_Contraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_ContraseñaKeyReleased(evt);
+            }
+        });
+
+        jTextField_RepContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_RepContraseñaKeyReleased(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("00/00/00");
@@ -129,13 +202,13 @@ public class Crear_admin extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel17)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField10))
+                                        .addComponent(jTextField_RepContraseña))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel16)
                                         .addGap(45, 45, 45)
-                                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jTextField_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1))
+                                .addComponent(jButton_Guardar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -146,8 +219,8 @@ public class Crear_admin extends javax.swing.JFrame {
                                                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                    .addComponent(jComboBox_Ciudad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jComboBox_Actividad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                 .addGap(37, 37, 37))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -157,26 +230,26 @@ public class Crear_admin extends javax.swing.JFrame {
                                                             .addComponent(jLabel8))
                                                         .addGap(14, 14, 14)
                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                            .addComponent(jTextField_Apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addComponent(jTextField_Nombres, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                         .addComponent(jLabel14)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addComponent(jTextField_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                 .addGap(10, 10, 10)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel11)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addComponent(jComboBox_Comuna, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel7)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(jComboBox_Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel13)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(jTextField_Celular, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel6)
@@ -197,8 +270,8 @@ public class Crear_admin extends javax.swing.JFrame {
                                             .addComponent(jLabel15))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                                            .addComponent(jTextField7)))
+                                            .addComponent(jTextField_Direccion, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                                            .addComponent(jTextField_email)))
                                     .addComponent(jLabel12))))
                         .addGap(24, 24, 24)))
                 .addContainerGap())
@@ -222,37 +295,37 @@ public class Crear_admin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_Nombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_Apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_Actividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox_Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_Ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_Comuna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_Direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
                     .addComponent(jLabel13)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_Celular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(jButton_Guardar)
                         .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
@@ -260,36 +333,109 @@ public class Crear_admin extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel16)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextField_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel17))
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField_RepContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(45, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_GuardarActionPerformed
         // TODO add your handling code here:
     //if (rud.getText() != "" )
-    
-        int rut = Integer.parseInt(rud.getText());
-        String verificador = dv.getText();
-       validaRut comprobar = new validaRut();
-       //dv.setText(comprobar.digitoVerificador(rut));
-       Crear_admin error = new Crear_admin();
+    Crear_admin error = new Crear_admin();
+    if(rud.getText().equals("")){
+      JOptionPane.showMessageDialog(error,"Debe completar el run");
+    }
+    else{
+        int rut = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
+        String verificador = dv.getText();//guardo digito verificador en digito del tipo string
+        validaRut comprobar = new validaRut();//instancio la clase validaRut
        
-        //if(comprobar.digitoVerificador(rut)==verificador )
-       if(comprobar.digitoVerificador(rut).equals(verificador))
-            {
+           if(comprobar.digitoVerificador(rut).equals(verificador)){
             JOptionPane.showMessageDialog(error,"RUN correcto");
-            }
-        
-        else {
+            // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
+           }
+           else{
             JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
-             }
-    }//GEN-LAST:event_jButton1ActionPerformed
+           }
+    }
+    }//GEN-LAST:event_jButton_GuardarActionPerformed
+
+    private void dvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dvActionPerformed
+        // TODO add your handling code here:
+         
+        
+    }//GEN-LAST:event_dvActionPerformed
+
+    private void rudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rudActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rudActionPerformed
+
+    private void rudKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rudKeyTyped
+        // TODO add your handling code here:
+        
+        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')) {evt.consume();}        
+    }//GEN-LAST:event_rudKeyTyped
+
+    private void dvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dvKeyTyped
+        // TODO add  handling code here:
+   
+     //valor = cadena.toUpperCase();
+       // String cadena= (dv.getText()).toUpperCase();
+        //dv.setText(cadena);
+      
+    }//GEN-LAST:event_dvKeyTyped
+
+    private void dvKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dvKeyPressed
+
+    }//GEN-LAST:event_dvKeyPressed
+
+    private void jTextField_TelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_TelefonoKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')) {evt.consume();}
+    }//GEN-LAST:event_jTextField_TelefonoKeyTyped
+
+    private void jTextField_CelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_CelularKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')) {evt.consume();}
+    }//GEN-LAST:event_jTextField_CelularKeyTyped
+
+    private void jTextField_NombresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_NombresKeyReleased
+        // TODO add your handling code here:
+        jTextField_Nombres.setText(jTextField_Nombres.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_jTextField_NombresKeyReleased
+
+    private void jTextField_ApellidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ApellidosKeyReleased
+        // TODO add your handling code here:
+        jTextField_Apellidos.setText(jTextField_Apellidos.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_jTextField_ApellidosKeyReleased
+
+    private void jTextField_DireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_DireccionKeyReleased
+        // TODO add your handling code here
+        jTextField_Direccion.setText(jTextField_Direccion.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_jTextField_DireccionKeyReleased
+
+    private void jTextField_emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_emailKeyReleased
+        // TODO add your handling code here:
+        jTextField_email.setText(jTextField_email.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_jTextField_emailKeyReleased
+
+    private void jTextField_ContraseñaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ContraseñaKeyReleased
+        // TODO add your handling code here:
+        jTextField_Contraseña.setText(jTextField_Contraseña.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_jTextField_ContraseñaKeyReleased
+
+    private void jTextField_RepContraseñaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_RepContraseñaKeyReleased
+        // TODO add your handling code here:
+         jTextField_RepContraseña.setText(jTextField_RepContraseña.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_jTextField_RepContraseñaKeyReleased
                                                                            
     /**
      * @param args the command line arguments
@@ -327,11 +473,11 @@ public class Crear_admin extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField dv;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JButton jButton_Guardar;
+    private javax.swing.JComboBox jComboBox_Actividad;
+    private javax.swing.JComboBox jComboBox_Carrera;
+    private javax.swing.JComboBox jComboBox_Ciudad;
+    private javax.swing.JComboBox jComboBox_Comuna;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -349,14 +495,14 @@ public class Crear_admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextField_Apellidos;
+    private javax.swing.JTextField jTextField_Celular;
+    private javax.swing.JTextField jTextField_Contraseña;
+    private javax.swing.JTextField jTextField_Direccion;
+    private javax.swing.JTextField jTextField_Nombres;
+    private javax.swing.JTextField jTextField_RepContraseña;
+    private javax.swing.JTextField jTextField_Telefono;
+    private javax.swing.JTextField jTextField_email;
     private javax.swing.JTextField rud;
     // End of variables declaration//GEN-END:variables
 }

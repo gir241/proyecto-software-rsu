@@ -4,6 +4,8 @@
  */
 package irsu;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author rsuinformatica
@@ -37,22 +39,22 @@ public class Crear_usuario extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
-        jComboBox4 = new javax.swing.JComboBox();
-        jTextField4 = new javax.swing.JTextField();
+        rud = new javax.swing.JTextField();
+        jTextField_Nombres = new javax.swing.JTextField();
+        jTextField_Apellidos = new javax.swing.JTextField();
+        jComboBox_Actividad = new javax.swing.JComboBox();
+        jComboBox_Carrera = new javax.swing.JComboBox();
+        jComboBox_Ciudad = new javax.swing.JComboBox();
+        jComboBox_Comuna = new javax.swing.JComboBox();
+        jTextField_Direccion = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jTextField_Telefono = new javax.swing.JTextField();
+        jTextField_Celular = new javax.swing.JTextField();
+        jTextField_email = new javax.swing.JTextField();
+        dv = new javax.swing.JTextField();
+        jButton_Guardar = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -81,13 +83,37 @@ public class Crear_usuario extends javax.swing.JFrame {
 
         jLabel11.setText("Comuna:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Estudiante ", "Profesor" }));
+        rud.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rudKeyTyped(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21030", "21041" }));
+        jTextField_Nombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_NombresKeyReleased(evt);
+            }
+        });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jTextField_Apellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_ApellidosKeyReleased(evt);
+            }
+        });
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_Actividad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ESTUDIANTE", "PROFESOR ", "OTRO" }));
+
+        jComboBox_Carrera.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21030", "21041" }));
+
+        jComboBox_Ciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBox_Comuna.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextField_Direccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_DireccionKeyReleased(evt);
+            }
+        });
 
         jLabel13.setText("Celular:");
 
@@ -95,7 +121,36 @@ public class Crear_usuario extends javax.swing.JFrame {
 
         jLabel15.setText("email:");
 
-        jButton1.setText("Guardar");
+        jTextField_Telefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_TelefonoKeyTyped(evt);
+            }
+        });
+
+        jTextField_Celular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_CelularKeyTyped(evt);
+            }
+        });
+
+        jTextField_email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_emailKeyReleased(evt);
+            }
+        });
+
+        dv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                dvKeyReleased(evt);
+            }
+        });
+
+        jButton_Guardar.setText("Guardar");
+        jButton_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_GuardarActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("00/00/00");
@@ -112,7 +167,7 @@ public class Crear_usuario extends javax.swing.JFrame {
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(layout.createSequentialGroup()
                                 .add(0, 0, Short.MAX_VALUE)
-                                .add(jButton1))
+                                .add(jButton_Guardar))
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(layout.createSequentialGroup()
@@ -123,8 +178,8 @@ public class Crear_usuario extends javax.swing.JFrame {
                                                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel5))
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                                    .add(jComboBox3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .add(jComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                    .add(jComboBox_Ciudad, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .add(jComboBox_Actividad, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                 .add(37, 37, 37))
                                             .add(layout.createSequentialGroup()
                                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -134,26 +189,26 @@ public class Crear_usuario extends javax.swing.JFrame {
                                                             .add(jLabel8))
                                                         .add(14, 14, 14)
                                                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                            .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                            .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                                            .add(jTextField_Apellidos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                            .add(jTextField_Nombres, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                                                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                                                         .add(jLabel14)
                                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                        .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 81, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                                        .add(jTextField_Telefono, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 81, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                                                 .add(10, 10, 10)))
                                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(layout.createSequentialGroup()
                                                 .add(jLabel11)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                .add(jComboBox4, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .add(jComboBox_Comuna, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                             .add(layout.createSequentialGroup()
                                                 .add(jLabel7)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                                .add(jComboBox_Carrera, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                             .add(layout.createSequentialGroup()
                                                 .add(jLabel13)
                                                 .add(18, 18, 18)
-                                                .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                                                .add(jTextField_Celular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                                     .add(layout.createSequentialGroup()
                                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                             .add(jLabel6)
@@ -161,9 +216,9 @@ public class Crear_usuario extends javax.swing.JFrame {
                                             .add(layout.createSequentialGroup()
                                                 .add(jLabel4)
                                                 .add(37, 37, 37)
-                                                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .add(rud, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                                .add(dv, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                                         .add(0, 0, Short.MAX_VALUE)))
                                 .add(17, 17, 17)
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -173,8 +228,8 @@ public class Crear_usuario extends javax.swing.JFrame {
                                             .add(jLabel15))
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                            .add(jTextField4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                                            .add(jTextField7)))
+                                            .add(jTextField_Direccion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                                            .add(jTextField_email)))
                                     .add(jLabel12))))
                         .add(24, 24, 24)))
                 .addContainerGap())
@@ -193,45 +248,110 @@ public class Crear_usuario extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(rud, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(dv, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
-                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTextField_Nombres, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jTextField_Apellidos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel8))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel9)
-                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jComboBox_Actividad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel7)
-                    .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jComboBox_Carrera, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jComboBox_Ciudad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel5)
                     .add(jLabel11)
-                    .add(jComboBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jComboBox_Comuna, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel10)
-                    .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTextField_Direccion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jTextField_Telefono, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel14)
                     .add(jLabel13)
                     .add(jLabel15)
-                    .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTextField_Celular, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jTextField_email, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 73, Short.MAX_VALUE)
-                .add(jButton1)
+                .add(jButton_Guardar)
                 .add(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void rudKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rudKeyTyped
+        // TODO add your handling code here:
+         char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')) {evt.consume();}      
+    }//GEN-LAST:event_rudKeyTyped
+
+    private void jButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_GuardarActionPerformed
+         Crear_admin error = new Crear_admin();
+    if(rud.getText().equals("")){
+      JOptionPane.showMessageDialog(error,"Debe completar el run");
+    }
+    else{
+        int rut = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
+        String verificador = dv.getText();//guardo digito verificador en digito del tipo string
+        validaRut comprobar = new validaRut();//instancio la clase validaRut
+       
+           if(comprobar.digitoVerificador(rut).equals(verificador)){
+            JOptionPane.showMessageDialog(error,"RUN correcto");
+            // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
+           }
+           else{
+            JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
+           }
+    }
+        
+   
+    }//GEN-LAST:event_jButton_GuardarActionPerformed
+
+    private void jTextField_TelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_TelefonoKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')) {evt.consume();}
+    }//GEN-LAST:event_jTextField_TelefonoKeyTyped
+
+    private void jTextField_CelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_CelularKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')) {evt.consume();}
+    }//GEN-LAST:event_jTextField_CelularKeyTyped
+
+    private void dvKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dvKeyReleased
+        // TODO add your handling code here:
+        dv.setText(dv.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_dvKeyReleased
+
+    private void jTextField_NombresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_NombresKeyReleased
+        // TODO add your handling code here:
+         jTextField_Nombres.setText(jTextField_Nombres.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_jTextField_NombresKeyReleased
+
+    private void jTextField_ApellidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ApellidosKeyReleased
+        // TODO add your handling code here:
+         jTextField_Apellidos.setText(jTextField_Apellidos.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_jTextField_ApellidosKeyReleased
+
+    private void jTextField_DireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_DireccionKeyReleased
+        // TODO add your handling code here:
+        jTextField_Direccion.setText(jTextField_Direccion.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_jTextField_DireccionKeyReleased
+
+    private void jTextField_emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_emailKeyReleased
+        // TODO add your handling code here:
+        jTextField_email.setText(jTextField_email.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_jTextField_emailKeyReleased
 
     /**
      * @param args the command line arguments
@@ -268,11 +388,12 @@ public class Crear_usuario extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JTextField dv;
+    private javax.swing.JButton jButton_Guardar;
+    private javax.swing.JComboBox jComboBox_Actividad;
+    private javax.swing.JComboBox jComboBox_Carrera;
+    private javax.swing.JComboBox jComboBox_Ciudad;
+    private javax.swing.JComboBox jComboBox_Comuna;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -288,13 +409,12 @@ public class Crear_usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField_Apellidos;
+    private javax.swing.JTextField jTextField_Celular;
+    private javax.swing.JTextField jTextField_Direccion;
+    private javax.swing.JTextField jTextField_Nombres;
+    private javax.swing.JTextField jTextField_Telefono;
+    private javax.swing.JTextField jTextField_email;
+    private javax.swing.JTextField rud;
     // End of variables declaration//GEN-END:variables
 }
