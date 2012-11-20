@@ -111,10 +111,10 @@ public class Logeo_usuario extends javax.swing.JFrame {
         String verificador = dv.getText();//guardo digito verificador en digito del tipo string
         validaRut comprobar = new validaRut();//instancio la clase validaRut
        
-           if(comprobar.digitoVerificador(rut).equals(verificador)){
+           if(comprobar.digitoVerificador(rut).equals(verificador)){// si el rut existe ir a inventario
             JOptionPane.showMessageDialog(error,"RUN correcto");
-            Inventario user= new Inventario();
-            user.setVisible(true); 
+            Pedido_entrega pedidoUser= new Pedido_entrega();
+            pedidoUser.setVisible(true); 
             Logeo_usuario.this.dispose();
             // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
            }
