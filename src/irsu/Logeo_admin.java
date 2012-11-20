@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package irsu;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author rsuinformatica
@@ -30,10 +30,11 @@ public class Logeo_admin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        rud = new javax.swing.JTextField();
+        jButton_Iniciar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
+        dv = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,14 +48,29 @@ public class Logeo_admin extends javax.swing.JFrame {
 
         jLabel4.setText("Contraseña:");
 
-        jButton1.setText("Iniciar sesion");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        rud.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rudKeyTyped(evt);
+            }
+        });
+
+        jButton_Iniciar.setText("Iniciar sesion");
+        jButton_Iniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_IniciarActionPerformed(evt);
             }
         });
 
         jLabel6.setText("Informatica Responsabilidad Social Universitaria");
+
+        dv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                dvKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dvKeyTyped(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,18 +86,21 @@ public class Logeo_admin extends javax.swing.JFrame {
                         .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(192, 192, 192))
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
-                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel6)
                             .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, jPasswordField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
-                        .add(0, 0, Short.MAX_VALUE))))
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(jButton_Iniciar)
+                                .add(jPasswordField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(layout.createSequentialGroup()
+                                .add(rud, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 89, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(dv)))
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -92,29 +111,71 @@ public class Logeo_admin extends javax.swing.JFrame {
                 .add(jLabel6)
                 .add(18, 18, 18)
                 .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(rud, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(dv, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPasswordField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(28, 28, 28)
-                .add(jButton1)
-                .add(44, 44, 44))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jButton_Iniciar)
+                .add(61, 61, 61))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_IniciarActionPerformed
         
         // TODO add your handling code here:
-        Pantalla_principal log = new Pantalla_principal();
-        log.setVisible(true);
-        Logeo_admin.this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        Crear_admin error = new Crear_admin();
+    if(rud.getText().equals("")){
+      JOptionPane.showMessageDialog(error,"Debe completar el run");
+    }
+    else{
+        int rut = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
+        String verificador = dv.getText();//guardo digito verificador en digito del tipo string
+        validaRut comprobar = new validaRut();//instancio la clase validaRut
+       
+           if(comprobar.digitoVerificador(rut).equals(verificador)){
+            Pantalla_principal log = new Pantalla_principal();
+            log.setVisible(true);
+            Logeo_admin.this.dispose();
+            // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
+           }
+           else{
+            JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
+           }
+    }
+        
+    }//GEN-LAST:event_jButton_IniciarActionPerformed
+
+    private void rudKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rudKeyTyped
+        // TODO add your handling code here:
+        int limite=8;
+          char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')||rud.getText().length()== limite)
+        {evt.consume();} 
+        
+
+     
+    }//GEN-LAST:event_rudKeyTyped
+
+    private void dvKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dvKeyReleased
+        // TODO add your handling code here:
+        dv.setText(dv.getText().toUpperCase());//transorma a mayusculas
+    }//GEN-LAST:event_dvKeyReleased
+
+    private void dvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dvKeyTyped
+        // TODO add your handling code here:
+        int limite=1;
+        if (dv.getText().length()== limite){evt.consume();}
+    }//GEN-LAST:event_dvKeyTyped
 
     /**
      * @param args the command line arguments
@@ -151,13 +212,14 @@ public class Logeo_admin extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField dv;
+    private javax.swing.JButton jButton_Iniciar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField rud;
     // End of variables declaration//GEN-END:variables
 }
