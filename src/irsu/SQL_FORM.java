@@ -7,9 +7,6 @@ package irsu;
 //import org.apache.commons.dbcp.BasicDataSourceFactory;
 //import org.apache.commons.dbcp.BasicDataSource;
 
-import javax.swing.JOptionPane;
-
-
 
 /**
  *
@@ -57,10 +54,8 @@ public class SQL_FORM extends javax.swing.JFrame {
         jButton1.setText("Cargar");
 
         jButton2.setText("Limpiar");
-        jButton3.setText("jButton3");
 
         jButton3.setText("Crear BDD");
-
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -79,32 +74,16 @@ public class SQL_FORM extends javax.swing.JFrame {
                         .add(jButton1)
                         .add(48, 48, 48)
                         .add(jButton2)
-<<<<<<< HEAD
                         .add(18, 18, 18)
                         .add(jButton3)))
                 .addContainerGap(33, Short.MAX_VALUE))
-=======
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jButton3))
-                    .add(layout.createSequentialGroup()
-                        .add(113, 113, 113)
-                        .add(jButton3)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 375, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
->>>>>>> fc1ab48a040102a7509e142e0cedf9fecc2341a5
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 275, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(jButton3)
-                        .add(53, 53, 53)))
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 275, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton1)
                     .add(jButton2)
@@ -117,15 +96,7 @@ public class SQL_FORM extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         SQL sql = new SQL();
-
-        //sql.CrearBDD();
-        SQL_FORM error = new SQL_FORM();
-      JOptionPane.showMessageDialog(error,"error");
-        
-        // TODO add your handling code here:
-
         sql.CrearBDD();// TODO add your handling code here:
-
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -162,7 +133,6 @@ public class SQL_FORM extends javax.swing.JFrame {
             }
         });
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

@@ -41,6 +41,11 @@ public class Pantalla_principal extends javax.swing.JFrame {
         });
 
         jButton2.setText("Inventario");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         crear_admin.setText("Crear Admin");
         crear_admin.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +94,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         // TODO add your handling code here:
-        Logeo_usuario log= new Logeo_usuario(this, true);
+        Logeo_usuario log= new Logeo_usuario();
         log.setVisible(true); 
         Pantalla_principal.this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -100,6 +105,13 @@ public class Pantalla_principal extends javax.swing.JFrame {
         ca.setVisible(true);
         Pantalla_principal.this.dispose();
     }//GEN-LAST:event_crear_adminActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Inventario inventario= new Inventario();
+            inventario.setVisible(true); 
+            Pantalla_principal.this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
