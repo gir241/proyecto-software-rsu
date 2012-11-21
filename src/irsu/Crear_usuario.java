@@ -146,6 +146,11 @@ public class Crear_usuario extends javax.swing.JFrame {
             }
         });
 
+        jTextField_email.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_emailFocusLost(evt);
+            }
+        });
         jTextField_email.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_emailKeyReleased(evt);
@@ -419,6 +424,13 @@ public class Crear_usuario extends javax.swing.JFrame {
         int limite = 35;
         if (jTextField_email.getText().length() == limite){evt.consume();}
     }//GEN-LAST:event_jTextField_emailKeyTyped
+
+    private void jTextField_emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_emailFocusLost
+        // TODO add your handling code here:
+        validaMail valida = new validaMail();
+        String mail = jTextField_email.getText();
+        valida.validator(mail);
+    }//GEN-LAST:event_jTextField_emailFocusLost
 
     /**
      * @param args the command line arguments
