@@ -17,6 +17,8 @@ public class Crear_usuario extends javax.swing.JFrame {
      */
     public Crear_usuario() {
         initComponents();
+          Fecha iniciar = new Fecha();
+          jLabel_Fecha.setText(iniciar.fechaActual()); 
     }
 
     /**
@@ -55,7 +57,7 @@ public class Crear_usuario extends javax.swing.JFrame {
         jTextField_email = new javax.swing.JTextField();
         dv = new javax.swing.JTextField();
         jButton_Guardar = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
+        jLabel_Fecha = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -176,8 +178,8 @@ public class Crear_usuario extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel12.setText("00/00/00");
+        jLabel_Fecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel_Fecha.setText("00/00/00");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -250,7 +252,7 @@ public class Crear_usuario extends javax.swing.JFrame {
                             .add(layout.createSequentialGroup()
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jLabel12)
+                                    .add(jLabel_Fecha)
                                     .add(jButton_Guardar))))))
                 .addContainerGap())
         );
@@ -266,7 +268,7 @@ public class Crear_usuario extends javax.swing.JFrame {
                 .add(19, 19, 19)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(jLabel12))
+                    .add(jLabel_Fecha))
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
@@ -476,7 +478,6 @@ public class Crear_usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -488,6 +489,7 @@ public class Crear_usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_Fecha;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField_Apellidos;
     private javax.swing.JTextField jTextField_Celular;

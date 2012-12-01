@@ -16,6 +16,8 @@ public class Crear_admin extends javax.swing.JFrame {
      */
     public Crear_admin() {
         initComponents();
+        Fecha iniciar = new Fecha();
+       jLabel_Fecha.setText(iniciar.fechaActual());    
     }
 
     /**
@@ -56,7 +58,7 @@ public class Crear_admin extends javax.swing.JFrame {
         jTextField_Direccion = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jLabel_Fecha = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPasswordField_Contraseña = new javax.swing.JPasswordField();
         jPasswordField_RepContraseña = new javax.swing.JPasswordField();
@@ -191,8 +193,8 @@ public class Crear_admin extends javax.swing.JFrame {
 
         jLabel17.setText("Repetir contraseña:");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel12.setText("00/00/00");
+        jLabel_Fecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel_Fecha.setText("00/00/00");
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -278,7 +280,7 @@ public class Crear_admin extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel12))
+                                .addComponent(jLabel_Fecha))
                             .addComponent(jLabel6)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,7 +307,7 @@ public class Crear_admin extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel12))
+                            .addComponent(jLabel_Fecha))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -551,7 +553,6 @@ public class Crear_admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -565,6 +566,7 @@ public class Crear_admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_Fecha;
     private javax.swing.JPasswordField jPasswordField_Contraseña;
     private javax.swing.JPasswordField jPasswordField_RepContraseña;
     private javax.swing.JSeparator jSeparator1;

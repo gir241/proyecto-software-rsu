@@ -15,6 +15,8 @@ public class Inventario extends javax.swing.JFrame {
      */
     public Inventario() {
         initComponents();
+          Fecha iniciar = new Fecha();
+       jLabel_Fecha.setText(iniciar.fechaActual()); 
     }
 
     /**
@@ -30,7 +32,7 @@ public class Inventario extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jLabel_Fecha = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -82,8 +84,8 @@ public class Inventario extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("iRSU");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel12.setText("00/00/00");
+        jLabel_Fecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel_Fecha.setText("00/00/00");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar producto"));
 
@@ -213,7 +215,7 @@ public class Inventario extends javax.swing.JFrame {
                     .add(layout.createSequentialGroup()
                         .add(jLabel7)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jLabel12))
+                        .add(jLabel_Fecha))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel6)
@@ -236,7 +238,7 @@ public class Inventario extends javax.swing.JFrame {
                 .add(20, 20, 20)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
-                    .add(jLabel12))
+                    .add(jLabel_Fecha))
                 .add(28, 28, 28)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 258, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
@@ -317,7 +319,6 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -325,6 +326,7 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel_Fecha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
