@@ -7,62 +7,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 /**
  *
  * @author user
  */
   
     public class validaMail {
-
-    public void validator(String mail) {
-        String correo = mail;
-        if(isEmail(correo)){
-            System.out.println("Mail correcto");
+    public void validar(String dato){
+        Pattern pat = Pattern.compile("^[a-zA-Z0-9]*[._-w]{2,}@[a-zA-Z0-9_-]{2,}\\.[a-zA-Z]{2,4}(\\.[a-zA-Z]{2,4})?$");
+        Matcher mat = pat.matcher(dato);
+        if(mat.find()){
+            
         }else{
-            System.out.println("Mail incorrecto");
+            JOptionPane.showMessageDialog(null, "Correo invalido");
         }
-        
-     /*   String fecha = "23/12/1987";
-        if (isDate(fecha)) {
-            System.out.println("Fecha correcta");
-        }else{
-            System.out.println("Fecha incorrecta");
-        }
-       */ 
-        
     }
     
-    //metodo para validar si la fecha es correcta
-  /*  public boolean isDate(String fechax) {
-        try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            Date fecha = formatoFecha.parse(fechax);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    } 
-    
-    */
-
-    //metodo para validar correo electronio
-    public boolean isEmail(String correo) {
-        Pattern pat = null;
-        Matcher mat = null;        
-        pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
-        mat = pat.matcher(correo);
-        if (mat.find()) {
-            System.out.println("[" + mat.group() + "]");
-            return true;
-        }else{
-            return false;
-        }        
     }
-
-    }
-
-    
-    
-    
-    
-

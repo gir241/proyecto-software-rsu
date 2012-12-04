@@ -431,7 +431,7 @@ public class Crear_usuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         validaMail valida = new validaMail();
         String mail = jTextField_email.getText();
-        valida.validator(mail);
+        valida.validar(mail);
     }//GEN-LAST:event_jTextField_emailFocusLost
 
     /**
