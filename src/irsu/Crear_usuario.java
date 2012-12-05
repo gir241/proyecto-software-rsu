@@ -4,10 +4,6 @@
  */
 package irsu;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,68 +12,6 @@ import javax.swing.JOptionPane;
  */
 public class Crear_usuario extends javax.swing.JFrame {
 
-    
-     public String rut;
-    public String nombre;
-    public String apellido;
-    public String actividad;
-    public String ciudad;
-    public String comuna;
-    public String carrera;
-    public String telefono;
-    public String celular;
-    public String direccion;
-    public String email;
-
-    
-    public void actualizar_variables(){
-    rut = rud.getText() + dv.getText();
-    nombre = jTextField_Nombres.getText();
-    apellido = jTextField_Apellidos.getText();
-    actividad = jComboBox_Actividad.getSelectedItem().toString();
-    ciudad   = jComboBox_Ciudad.getSelectedItem().toString();
-    comuna  = jComboBox_Comuna.getSelectedItem().toString();
-    carrera = jComboBox_Carrera.getSelectedItem().toString();
-    telefono = jTextField_Telefono.getText();
-    celular = jTextField_Celular.getText();
-    direccion = jTextField_Direccion.getText();
-    email = jTextField_email.getText();
-    }
-    
-    public void Agregar_usuario(){
-        
-    Connection con = null;
-    Statement st = null;
-    try{
-         Class.forName("com.mysql.jdbc.Driver").newInstance();
-         con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
-      try{
-        st = con.createStatement();
-        st.executeUpdate("INSERT INTO USUARIO VALUES ('"+rut+ "','"+nombre+
-                "','"+apellido+"','"+actividad+"','"+ ciudad+"','"+comuna+"','"+carrera+ 
-                "','"+telefono +"','"+celular+"','"+direccion+"','"+ email+"');");
-        JOptionPane.showMessageDialog(null,"Datos agregados Exitosamente", 
-                "alert", JOptionPane.OK_OPTION);
-         }  
-      catch (SQLException s){
-          SQL_FORM error = new SQL_FORM();
-      JOptionPane.showMessageDialog(error,"error al crear usuario");
-
-      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
-
-    }
-       finally{
-          st.close();
-          con.close();
-      }
-  }
-        catch (Exception e){
-        e.printStackTrace();
-    }
-    
-    }
-    
     /**
      * Creates new form Crear_usuario
      */
@@ -396,11 +330,8 @@ public class Crear_usuario extends javax.swing.JFrame {
 
     private void jButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_GuardarActionPerformed
          Crear_admin error = new Crear_admin();
-         Boolean continuar= true;
     if(rud.getText().equals("")){
-      
-        continuar = false;
-        JOptionPane.showMessageDialog(error,"Debe completar el run");
+      JOptionPane.showMessageDialog(error,"Debe completar el run");
     }
     else{
         int rut = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
@@ -412,15 +343,11 @@ public class Crear_usuario extends javax.swing.JFrame {
             // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
            }
            else{
-               continuar = false;
-               JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
+            JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
            }
     }
-
-         if(continuar){
-        actualizar_variables();
-       Agregar_usuario();
-       }
+        
+   
     }//GEN-LAST:event_jButton_GuardarActionPerformed
 
     private void jTextField_TelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_TelefonoKeyTyped
