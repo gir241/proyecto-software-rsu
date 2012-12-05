@@ -14,14 +14,17 @@ import javax.swing.JOptionPane;
  */
   
     public class validaMail {
-    public void validar(String dato){
-        Pattern pat = Pattern.compile("^[a-zA-Z0-9]*[._-w]{2,}@[a-zA-Z0-9_-]{2,}\\.[a-zA-Z]{2,4}(\\.[a-zA-Z]{2,4})?$");
-        Matcher mat = pat.matcher(dato);
-        if(mat.find()){
-            
+   public boolean isEmail(String correo) {
+        Pattern pat = null;
+        Matcher mat = null;        
+        pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
+        mat = pat.matcher(correo);
+        if (mat.find()) {
+            System.out.println("[" + mat.group() + "]");
+            return true;
         }else{
-            JOptionPane.showMessageDialog(null, "Correo invalido");
-        }
+            return false;
+        }        
     }
     
     }
