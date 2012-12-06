@@ -3,6 +3,11 @@
  * and open the template in the editor.
  */
 package irsu;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 /**
  *
@@ -13,6 +18,12 @@ public class Logeo_admin extends javax.swing.JFrame {
     /**
      * Creates new form Logeo_admin
      */
+    public String rut;
+    public String contraseña;
+     public void actualizar_variables(){
+    
+    contraseña = new String(Contraseña.getPassword());
+     }
     public Logeo_admin() {
         initComponents();
     }
@@ -33,7 +44,7 @@ public class Logeo_admin extends javax.swing.JFrame {
         rud = new javax.swing.JTextField();
         jButton_Iniciar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jPasswordField_Contraseña = new javax.swing.JPasswordField();
+        Contraseña = new javax.swing.JPasswordField();
         dv = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
 
@@ -49,6 +60,11 @@ public class Logeo_admin extends javax.swing.JFrame {
 
         jLabel4.setText("Contraseña:");
 
+        rud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rudActionPerformed(evt);
+            }
+        });
         rud.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 rudKeyTyped(evt);
@@ -64,9 +80,14 @@ public class Logeo_admin extends javax.swing.JFrame {
 
         jLabel6.setText("Informatica Responsabilidad Social Universitaria");
 
-        jPasswordField_Contraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+        Contraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContraseñaActionPerformed(evt);
+            }
+        });
+        Contraseña.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jPasswordField_ContraseñaKeyTyped(evt);
+                ContraseñaKeyTyped(evt);
             }
         });
 
@@ -93,12 +114,12 @@ public class Logeo_admin extends javax.swing.JFrame {
                         .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(192, 192, 192))
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createSequentialGroup()
-                                .add(rud, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 89, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(dv)))
+                                .add(rud, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 97, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(dv, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -106,7 +127,7 @@ public class Logeo_admin extends javax.swing.JFrame {
                             .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                 .add(jButton_Iniciar)
-                                .add(jPasswordField_Contraseña, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                .add(Contraseña, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .add(0, 0, Short.MAX_VALUE))))
             .add(layout.createSequentialGroup()
                 .addContainerGap()
@@ -133,7 +154,7 @@ public class Logeo_admin extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPasswordField_Contraseña, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(Contraseña, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jButton_Iniciar)
                 .add(61, 61, 61))
@@ -145,26 +166,75 @@ public class Logeo_admin extends javax.swing.JFrame {
     private void jButton_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_IniciarActionPerformed
         
         // TODO add your handling code here:
-        
-        Crear_admin error = new Crear_admin();
+         Boolean continuar= true;
+    Crear_admin error = new Crear_admin();
     if(rud.getText().equals("")){
       JOptionPane.showMessageDialog(error,"Debe completar el run");
+      continuar= false;
     }
     else{
-        int rut = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
+        int rut1 = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
         String verificador = dv.getText();//guardo digito verificador en digito del tipo string
         validaRut comprobar = new validaRut();//instancio la clase validaRut
        
-           if(comprobar.digitoVerificador(rut).equals(verificador)){
-            Pantalla_principal log = new Pantalla_principal();
-            log.setVisible(true);
-            Logeo_admin.this.dispose();
+           if(comprobar.digitoVerificador(rut1).equals(verificador)){
+            
+               try
+                {                   
+                    //chekar si el usuario escrbio el nombre de usuario y pw
+                    if (rud.getText().length() > 0 && Contraseña.getText().length() > 0 && dv.getText().length()>0 )
+
+                    {
+                        rut = rud.getText().toString() + dv.getText().toString() ;
+                        // Si el usuario si fue validado correctamente
+                        if( validarUsuario( rut, Contraseña.getText()) )    //enviar datos a validar
+                        {
+                            // Codigo para mostrar la ventana principal
+                            
+                            Pantalla_principal log = new Pantalla_principal();
+                            log.setVisible(true);
+                            Logeo_admin.this.dispose();
+ 
+ 
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "El nombre de usuario y/o contrasenia no son validos.");
+                            JOptionPane.showMessageDialog(null, rut+" " +contraseña );
+                            rud.setText("");    //limpiar campos
+                            Contraseña.setText("");       
+                            dv.setText("");
+                            rud.requestFocusInWindow();
+                        }
+ 
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Debe escribir nombre de usuario y contrasenia.\n" +
+                            "NO puede dejar ningun campo vacio");
+                    }
+ 
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
            }
            else{
             JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
+             continuar= false;
            }
+        
+        
+        
+        
+        
+     
     }
+
+    
+    
+    
         
     }//GEN-LAST:event_jButton_IniciarActionPerformed
 
@@ -190,15 +260,79 @@ public class Logeo_admin extends javax.swing.JFrame {
         if (dv.getText().length()== limite){evt.consume();}
     }//GEN-LAST:event_dvKeyTyped
 
-    private void jPasswordField_ContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField_ContraseñaKeyTyped
+    private void ContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ContraseñaKeyTyped
         // TODO add your handling code here:
         int limite = 15;
-        if (jPasswordField_Contraseña.getPassword().length == limite){evt.consume();}
-    }//GEN-LAST:event_jPasswordField_ContraseñaKeyTyped
+        if (Contraseña.getPassword().length == limite){evt.consume();}
+    }//GEN-LAST:event_ContraseñaKeyTyped
+
+    private void ContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ContraseñaActionPerformed
+
+    private void rudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rudActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rudActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    
+    boolean validarUsuario(String rut, String contraseña)  throws IOException
+
+    {
+
+        try
+
+        {
+
+            //nombre de la BD: bdlogin
+
+             //nombre de la tabla: usuarios
+
+             //                             id      integer auto_increment not null     <--llave primaria
+
+             //                   campos:    usuario    char(25)
+
+             //                              password char(50)
+
+              Connection con = null;
+
+            con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+
+            // Preparamos la consulta
+
+            Statement instruccionSQL = con.createStatement();
+
+            ResultSet resultadosConsulta = instruccionSQL.executeQuery ("SELECT * FROM admin WHERE run_admin='"+rut+"' AND contraseña='"+ contraseña+"'");
+
+ 
+
+            if( resultadosConsulta.first() )        // si es valido el primer reg. hay una fila, tons el usuario y su pw existen
+
+                return true;        //usuario validado correctamente
+
+            else
+
+                return false;        //usuario validado incorrectamente
+
+                 
+
+        } catch (Exception e)
+
+        {
+
+            e.printStackTrace();
+
+            return false;
+
+        }
+
+ 
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -231,6 +365,7 @@ public class Logeo_admin extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField Contraseña;
     private javax.swing.JTextField dv;
     private javax.swing.JButton jButton_Iniciar;
     private javax.swing.JLabel jLabel1;
@@ -238,7 +373,6 @@ public class Logeo_admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPasswordField jPasswordField_Contraseña;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField rud;
     // End of variables declaration//GEN-END:variables
