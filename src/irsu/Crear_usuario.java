@@ -408,7 +408,7 @@ public class Crear_usuario extends javax.swing.JFrame {
         validaRut comprobar = new validaRut();//instancio la clase validaRut
        
            if(comprobar.digitoVerificador(rut).equals(verificador)){
-            JOptionPane.showMessageDialog(error,"RUN correcto");
+            //JOptionPane.showMessageDialog(error,"RUN correcto");
             // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
            }
            else{

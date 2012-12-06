@@ -435,8 +435,17 @@ public String rut;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_GuardarActionPerformed
+        Crear_admin error = new Crear_admin();
+        String a = jPasswordField_Contraseña.getText();
+        String b = jPasswordField_RepContraseña.getText();
+        validado_contraseña ctr = new validado_contraseña();
+        if(ctr.ctr(a, b)== false)
+        {
+          JOptionPane.showMessageDialog(error,"Contraseñas Distintas");  
+        }
+            
         Boolean continuar= true;
-    Crear_admin error = new Crear_admin();
+   
     if(rud.getText().equals("")){
       JOptionPane.showMessageDialog(error,"Debe completar el run");
       continuar= false;
@@ -447,7 +456,7 @@ public String rut;
         validaRut comprobar = new validaRut();//instancio la clase validaRut
        
            if(comprobar.digitoVerificador(rut).equals(verificador)){
-            JOptionPane.showMessageDialog(error,"RUN correcto");
+            //JOptionPane.showMessageDialog(error,"RUN correcto");
             // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
            }
            else{
