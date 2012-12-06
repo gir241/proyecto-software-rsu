@@ -347,6 +347,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
                             // Codigo para mostrar la ventana principal
                             
                             Pedido_entrega ped = new Pedido_entrega();
+                            ped.setete(rut);
                             ped.setVisible(true);
                             Pantalla_principal.this.dispose();
  

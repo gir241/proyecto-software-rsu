@@ -4,6 +4,13 @@
  */
 package irsu;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author joel
@@ -13,13 +20,77 @@ public class Pedido_entrega extends javax.swing.JFrame {
     /**
      * Creates new form Pedido_entrega
      */
+    
+    public String auxiliar;
+   public String envio;
+   private String prueba;
+   
+   
+    
+    public void consulta_datos(String consulta, String condicion ,String variable){
+        
+    //realizar consulta SQL:
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+ 
+    try{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+         con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+      try{
+        st = con.createStatement();
+        
+       rs = st.executeQuery("Select "+consulta+" from usuario where "+condicion       
+        + " = '"+variable+"'");
+        
+       // rs = st.executeQuery("Select nombre from usuario where run_usuario = '178350781'");
+   
+        if(rs.next()){
+               auxiliar=rs.getString("nombre");
+           
+           
+        }
+        else
+            auxiliar = "asdf";
+      }
+      catch (SQLException s){
+
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error en cargar inventario");
+
+      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
+
+    }
+      finally{
+          rs.close();
+          st.close();
+          con.close();
+      }
+    }
+        catch (Exception e){
+        e.printStackTrace();
+    }    
+         }
+    
+    
+    
+    public void setete(String r){
+   
+   jtxrut.setText(r);
+   consulta_datos("nombre","run_usuario",r);
+   nombre.setText(auxiliar);
+   
+   }
+    
+    
     public Pedido_entrega() {
         initComponents();
           Fecha iniciar = new Fecha();
           jLabel_Fecha.setText(iniciar.fechaActual());
           Pantalla_principal traer = new Pantalla_principal();
           String a =traer.rut;
-          jTextField_Rut.setText(a);
+          jtxrut.setText(a);
     }
 
     /**
@@ -36,8 +107,8 @@ public class Pedido_entrega extends javax.swing.JFrame {
         jLabel_Fecha = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField_Nombre = new javax.swing.JTextField();
-        jTextField_Rut = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
+        jtxrut = new javax.swing.JTextField();
         jButton_Informacion = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -70,9 +141,9 @@ public class Pedido_entrega extends javax.swing.JFrame {
 
         jLabel3.setText("Rut:");
 
-        jTextField_Nombre.setEditable(false);
+        nombre.setEditable(false);
 
-        jTextField_Rut.setEditable(false);
+        jtxrut.setEditable(false);
 
         jButton_Informacion.setText("Mas informacion");
         jButton_Informacion.addActionListener(new java.awt.event.ActionListener() {
@@ -258,8 +329,8 @@ public class Pedido_entrega extends javax.swing.JFrame {
                                             .addComponent(jLabel3))
                                         .addGap(18, 18, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField_Rut, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jtxrut, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jButton_Informacion)))
@@ -284,11 +355,11 @@ public class Pedido_entrega extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField_Rut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxrut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Informacion)
@@ -394,7 +465,7 @@ public class Pedido_entrega extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField_CodigoEnt;
     private javax.swing.JTextField jTextField_CodigoSol;
-    private javax.swing.JTextField jTextField_Nombre;
-    private javax.swing.JTextField jTextField_Rut;
+    public javax.swing.JTextField jtxrut;
+    private javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }
