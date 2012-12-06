@@ -16,7 +16,10 @@ public class Pedido_entrega extends javax.swing.JFrame {
     public Pedido_entrega() {
         initComponents();
           Fecha iniciar = new Fecha();
-          jLabel_Fecha.setText(iniciar.fechaActual()); 
+          jLabel_Fecha.setText(iniciar.fechaActual());
+          Pantalla_principal traer = new Pantalla_principal();
+          String a =traer.rut;
+          jTextField_Rut.setText(a);
     }
 
     /**
@@ -33,8 +36,8 @@ public class Pedido_entrega extends javax.swing.JFrame {
         jLabel_Fecha = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jTextField_Nombre = new javax.swing.JTextField();
+        jTextField_Rut = new javax.swing.JTextField();
         jButton_Informacion = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -67,9 +70,9 @@ public class Pedido_entrega extends javax.swing.JFrame {
 
         jLabel3.setText("Rut:");
 
-        jTextField1.setEditable(false);
+        jTextField_Nombre.setEditable(false);
 
-        jTextField2.setEditable(false);
+        jTextField_Rut.setEditable(false);
 
         jButton_Informacion.setText("Mas informacion");
         jButton_Informacion.addActionListener(new java.awt.event.ActionListener() {
@@ -255,8 +258,8 @@ public class Pedido_entrega extends javax.swing.JFrame {
                                             .addComponent(jLabel3))
                                         .addGap(18, 18, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jTextField_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField_Rut, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jButton_Informacion)))
@@ -281,11 +284,11 @@ public class Pedido_entrega extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_Rut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Informacion)
@@ -389,9 +392,9 @@ public class Pedido_entrega extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField_CodigoEnt;
     private javax.swing.JTextField jTextField_CodigoSol;
+    private javax.swing.JTextField jTextField_Nombre;
+    private javax.swing.JTextField jTextField_Rut;
     // End of variables declaration//GEN-END:variables
 }

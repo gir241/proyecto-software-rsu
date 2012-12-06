@@ -103,6 +103,11 @@ public class Pantalla_principal extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Solicitar Producto"));
 
+        rud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rudActionPerformed(evt);
+            }
+        });
         rud.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 rudKeyTyped(evt);
@@ -418,6 +423,10 @@ public class Pantalla_principal extends javax.swing.JFrame {
         Pantalla_principal.this.dispose();
     }//GEN-LAST:event_crear_userActionPerformed
 
+    private void rudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rudActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rudActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -462,14 +471,12 @@ public class Pantalla_principal extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton crear_admin;
-    private javax.swing.JButton crear_admin1;
     private javax.swing.JButton crear_user;
     private javax.swing.JTextField dv;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_IngresarUser;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -478,7 +485,6 @@ public class Pantalla_principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField rud;

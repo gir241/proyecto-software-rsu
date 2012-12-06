@@ -148,6 +148,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="rud">
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rudActionPerformed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="rudKeyTyped"/>
           </Events>
         </Component>
