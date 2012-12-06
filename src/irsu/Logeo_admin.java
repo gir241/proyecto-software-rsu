@@ -224,12 +224,6 @@ public class Logeo_admin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
              continuar= false;
            }
-        
-        
-        
-        
-        
-     
     }
 
     

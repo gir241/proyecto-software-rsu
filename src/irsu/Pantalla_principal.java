@@ -4,6 +4,11 @@
  */
 package irsu;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,10 +16,49 @@ import javax.swing.JOptionPane;
  * @author Gonzalo Pradena
  */
 public class Pantalla_principal extends javax.swing.JFrame {
+    
+      boolean validarUsuario(String rut)  throws IOException{
+        try
+
+        {
+
+              Connection con = null;
+
+            con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+
+            // Preparamos la consulta
+
+            Statement instruccionSQL = con.createStatement();
+
+            ResultSet resultadosConsulta = instruccionSQL.executeQuery ("SELECT run_usuario FROM USUARIO WHERE run_usuario='"+rut+"'");
+ 
+
+            if( resultadosConsulta.next() )        // si es valido el primer reg. hay una fila, tons el usuario y su pw existen
+
+                return true;        //usuario validado correctamente
+
+            else
+
+                return false;        //usuario validado incorrectamente
+
+                 
+
+        } catch (Exception e)
+
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     /**
      * Creates new form NewJFrame
      */
+    
+    public String rut;
+    public String contraseña;
+     
     public Pantalla_principal() {
         initComponents();
     }
@@ -272,24 +316,62 @@ public class Pantalla_principal extends javax.swing.JFrame {
     private void jButton_IngresarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_IngresarUserActionPerformed
 
         // TODO add your handling code here:
-       Pantalla_principal error = new Pantalla_principal();
+        Boolean continuar= true;
+    Crear_admin error = new Crear_admin();
     if(rud.getText().equals("")){
       JOptionPane.showMessageDialog(error,"Debe completar el run");
+      continuar= false;
     }
     else{
-        int rut = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
+        int rut1 = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
         String verificador = dv.getText();//guardo digito verificador en digito del tipo string
         validaRut comprobar = new validaRut();//instancio la clase validaRut
        
-           if(comprobar.digitoVerificador(rut).equals(verificador)){// si el rut existe ir a inventario
+           if(comprobar.digitoVerificador(rut1).equals(verificador)){
             
-            Pedido_entrega pedidoUser= new Pedido_entrega();
-            pedidoUser.setVisible(true); 
-            Pantalla_principal.this.dispose();
+               try
+                {                   
+                    //chekar si el usuario escrbio el nombre de usuario y pw
+                    if (rud.getText().length() > 0 && dv.getText().length()>0 )
+
+                    {
+                        rut = rud.getText().toString() + dv.getText().toString() ;
+                        // Si el usuario si fue validado correctamente
+                        if( validarUsuario(rut))    //enviar datos a validar
+                        {
+                            // Codigo para mostrar la ventana principal
+                            
+                            Pedido_entrega ped = new Pedido_entrega();
+                            ped.setVisible(true);
+                            Pantalla_principal.this.dispose();
+ 
+ 
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "El nombre de usuario y/o contrasenia no son validos.");
+                            rud.setText("");    //limpiar campos
+                            //Contraseña.setText("");       
+                            dv.setText("");
+                            rud.requestFocusInWindow();
+                        }
+ 
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Debe escribir nombre de usuario y contrasenia.\n" +
+                            "NO puede dejar ningun campo vacio");
+                    }
+ 
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
            }
            else{
             JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
+             continuar= false;
            }
     }
     }//GEN-LAST:event_jButton_IngresarUserActionPerformed
@@ -370,6 +452,14 @@ public class Pantalla_principal extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+  
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton crear_admin;
     private javax.swing.JButton crear_admin1;
