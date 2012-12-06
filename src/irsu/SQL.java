@@ -55,7 +55,8 @@ public class SQL{
         
         st.executeUpdate("CREATE TABLE PEDIDO (id_pedido VARCHAR(40) NOT NULL PRIMARY KEY,id_producto VARCHAR(40)"+
                 "NOT NULL REFERENCES ARTICULO (codigo)  ON DELETE CASCADE ON UPDATE CASCADE," +
-          "apellido VARCHAR(45), telefono VARCHAR(15),direccion VARCHAR(50), estado VARCHAR(10));");
+          "id_usuario varchar(20) NOT NULL REFERENCES USUARIO(run_usuario)  ON DELETE CASCADE ON UPDATE CASCADE"
+        + ",fecha_pedido varchar(15) ,fecha_entrega varchar(15));");
         
         
   
