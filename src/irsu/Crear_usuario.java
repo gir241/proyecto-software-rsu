@@ -5,6 +5,10 @@
 package irsu;
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +16,65 @@ import javax.swing.JOptionPane;
  * @author rsuinformatica
  */
 public class Crear_usuario extends javax.swing.JFrame {
+    public String rut;
+    public String nombre;
+    public String apellido;
+    public String actividad;
+    public String ciudad;
+    public String comuna;
+    public String carrera;
+    public String telefono;
+    public String celular;
+    public String direccion;
+    public String email;
 
+    
+    public void actualizar_variables(){
+    rut = rud.getText() + dv.getText();
+    nombre = jTextField_Nombres.getText();
+    apellido = jTextField_Apellidos.getText();
+    actividad = jComboBox_Actividad.getSelectedItem().toString();
+    comuna  = jComboBox_Comuna.getSelectedItem().toString();
+    carrera = jComboBox_Carrera.getSelectedItem().toString();
+    telefono = jTextField_Telefono.getText();
+    celular = jTextField_Celular.getText();
+    direccion = jTextField_Direccion.getText();
+    email = jTextField_email.getText();
+    }
+    
+    public void Agregar_usuario(){
+        
+    Connection con = null;
+    Statement st = null;
+    try{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+         con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+      try{
+        st = con.createStatement();
+        st.executeUpdate("INSERT INTO USUARIO VALUES ('"+rut+ "','"+nombre+
+                "','"+apellido+"','"+actividad+"','"+comuna+"','"+carrera+ 
+                "','"+telefono +"','"+celular+"','"+direccion+"','"+ email+"');");
+        JOptionPane.showMessageDialog(null,"Datos agregados Exitosamente", 
+                "alert", JOptionPane.OK_OPTION);
+         }  
+      catch (SQLException s){
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error al crear usuario");
+
+      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
+
+    }
+       finally{
+          st.close();
+          con.close();
+      }
+  }
+        catch (Exception e){
+        e.printStackTrace();
+    }
+    
+    }
     /**
      * Creates new form Crear_usuario
      */
@@ -302,8 +364,8 @@ public class Crear_usuario extends javax.swing.JFrame {
                             .add(jLabel7)
                             .add(jComboBox_Carrera, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel10)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel10)
                             .add(jTextField_Direccion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -332,9 +394,12 @@ public class Crear_usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_rudKeyTyped
 
     private void jButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_GuardarActionPerformed
-         Crear_admin error = new Crear_admin();
+        // TODO add your handling code here:
+          Boolean continuar= true;
+    Crear_admin error = new Crear_admin();
     if(rud.getText().equals("")){
       JOptionPane.showMessageDialog(error,"Debe completar el run");
+      continuar= false;
     }
     else{
         int rut = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
@@ -347,8 +412,14 @@ public class Crear_usuario extends javax.swing.JFrame {
            }
            else{
             JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
+             continuar= false;
            }
     }
+
+    if(continuar){
+        actualizar_variables();
+       Agregar_usuario();
+       }
         
    
     }//GEN-LAST:event_jButton_GuardarActionPerformed
@@ -456,7 +527,7 @@ public class Crear_usuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         Pantalla_principal cancelar= new Pantalla_principal();
         cancelar.setVisible(true);
-        Crear_admin.this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

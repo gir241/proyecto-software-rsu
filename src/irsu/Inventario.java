@@ -4,12 +4,188 @@
  */
 package irsu;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author rsuinformatica
  */
 public class Inventario extends javax.swing.JFrame {
 
+    
+      String codigo;
+    String categoria;
+    String producto;
+    String descripcion;
+    String   estado;
+    
+     public void cargar_Jtable(){
+        
+        //realizar consulta SQL:
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+    try{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+         con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+      try{
+        st = con.createStatement();
+        
+        rs = st.executeQuery("select * from ARTICULO ");
+            // reasigno un modelo en blanco:
+            DefaultTableModel modelo = new DefaultTableModel();
+             jTable1.setModel(modelo);
+            //creamos la columnas de nuestra tabla:
+                 modelo.addColumn("CODIGO");
+                 modelo.addColumn("CATEGORIA");
+                 modelo.addColumn("PRODUCTO");
+                 modelo.addColumn("DESCRIPCION");
+                 modelo.addColumn("ESTADO");
+            //asigno el tamaño del arreglo co la cantidad de columnas:
+                Object[] filas = new Object[5];
+            //escribo las filas:
+
+                int j = 0;
+                Boolean existencias = false;
+            while (rs.next())
+            {   
+                existencias = true;
+                //cantidad de columnas
+                 for (int i=0;i<5;i++)
+                 {
+                     filas[i] = rs.getObject(i+1);
+                 }
+             //    modelo.addRow(filas); 
+                 modelo.insertRow(j, filas);
+             j++;     
+            }
+                 //escribo las filas del resultado SQL//
+                 jTable1.setModel(modelo);
+                 if(!existencias){
+                 JOptionPane.showMessageDialog(null,"No se Encuentran articulos en stock", 
+                "alert", JOptionPane.OK_OPTION);  
+                 }
+         }  
+      catch (SQLException s){
+
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error en cargar inventario");
+
+      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
+
+    }
+      finally{
+          rs.close();
+          st.close();
+          con.close();
+      }
+  }
+        catch (Exception e){
+        e.printStackTrace();
+    }    
+         }
+     public void Agregar_articulo(){     
+        Connection con = null;
+       Statement st = null;
+    try{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+         con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+      try{
+        st = con.createStatement();
+        st.executeUpdate("INSERT INTO ARTICULO Values ('"+codigo +"','"+categoria+
+            "','" + producto+ "','"+ descripcion+"','"+estado+"');");
+        
+        JOptionPane.showMessageDialog(null,"Datos agregados Exitosamente", 
+                "alert", JOptionPane.OK_OPTION);
+         }  
+      catch (SQLException s){
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error al crear usuario");
+
+      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
+
+    }
+       finally{
+          st.close();
+          con.close();
+      }
+  }
+        catch (Exception e){
+        e.printStackTrace();
+    }
+    
+    
+        }
+     public void Carga_agregar(){
+     
+     codigo = jTextField_CodigoAgre.getText();
+     categoria = jTextField_Categoria.getText();
+     producto = jTextField_Producto.getText();
+     descripcion = jTextField_Descripcion.getText();
+     estado = "0";
+     }
+     
+     public void eliminar (){
+     Statement st = null;
+     Connection con = null;
+      ResultSet rs = null;
+    try{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+         con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+      try{
+          
+        st = con.createStatement();
+        
+        
+        rs= st.executeQuery("SELECT codigo FROM ARTICULO WHERE codigo = '"+codigo+"';");  
+       
+                 
+          if (rs.next()) {
+        st.executeUpdate("DELETE FROM ARTICULO WHERE codigo = '"+codigo+"';"); 
+        JOptionPane.showMessageDialog(null,"Dato eliminados Exitosamente", 
+                "alert", JOptionPane.OK_OPTION);}
+         else{
+         JOptionPane.showMessageDialog(null,"Error al eliminar producto, compruebe"
+              + " el codigo ingresado. Para mas informacion consulte al administrador", 
+                "alert", JOptionPane.OK_OPTION);}
+  
+             
+         }  
+      catch (SQLException s){
+
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error con la base de datos , "
+              + " Para mas informacion consulte al administrador");
+
+        //SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
+
+    }
+      finally{
+          st.close();
+          con.close();
+          rs.close();
+      }
+  }
+        catch (Exception e){
+        e.printStackTrace();
+    }
+  }
+     public void carga_eliminar(){
+     codigo = jTextField_CodigoElim.getText(); 
+
+     }
+     
     /**
      * Creates new form Inventario
      */
@@ -28,19 +204,9 @@ public class Inventario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel_Fecha = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField_CodigoAgre = new javax.swing.JTextField();
-        jTextField_Producto = new javax.swing.JTextField();
-        jTextField_Descripcion = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jTextField_CodigoElim = new javax.swing.JTextField();
@@ -48,36 +214,21 @@ public class Inventario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        Carga = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField_CodigoAgre1 = new javax.swing.JTextField();
+        jTextField_Producto1 = new javax.swing.JTextField();
+        jTextField_Descripcion1 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jTextField_Categoria2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "FECHA", "PRODUCTO", "DESCRIPCION", "CODIGO"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
 
         jLabel6.setText("Informatica Responsabilidad Social Universitaria");
 
@@ -86,73 +237,6 @@ public class Inventario extends javax.swing.JFrame {
 
         jLabel_Fecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel_Fecha.setText("00/00/00");
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar producto"));
-
-        jLabel3.setText("Codigo:");
-
-        jLabel4.setText("Producto:");
-
-        jLabel5.setText("Descripcion:");
-
-        jTextField_CodigoAgre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField_CodigoAgreKeyTyped(evt);
-            }
-        });
-
-        jTextField_Producto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField_ProductoKeyTyped(evt);
-            }
-        });
-
-        jTextField_Descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField_DescripcionKeyTyped(evt);
-            }
-        });
-
-        jButton1.setText("Agregar");
-
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel3)
-                    .add(jLabel4)
-                    .add(jLabel5))
-                .add(18, 18, 18)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jTextField_CodigoAgre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jTextField_Producto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 151, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(jButton1)
-                        .add(jTextField_Descripcion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 237, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(88, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel3)
-                    .add(jTextField_CodigoAgre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel4)
-                    .add(jTextField_Producto, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel5)
-                    .add(jTextField_Descripcion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jButton1)
-                .add(39, 39, 39))
-        );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Eliminar producto"));
 
@@ -165,6 +249,11 @@ public class Inventario extends javax.swing.JFrame {
         });
 
         jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setForeground(new java.awt.Color(64, 64, 64));
         jLabel1.setText("(Ingrese codigo del producto)");
@@ -176,14 +265,18 @@ public class Inventario extends javax.swing.JFrame {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton2)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(jLabel8)
-                        .add(18, 18, 18)
-                        .add(jTextField_CodigoElim, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(42, 42, 42))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel1))
-                .addContainerGap())
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .add(jLabel8)
+                                .add(18, 18, 18)
+                                .add(jTextField_CodigoElim, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(42, 42, 42))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel1))
+                        .addContainerGap())
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jButton2)
+                        .add(27, 27, 27))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -196,11 +289,144 @@ public class Inventario extends javax.swing.JFrame {
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jButton2)
-                .add(45, 45, 45))
+                .addContainerGap())
         );
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Inventario:");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "CODIGO", "CATEGORIA", "PRODUCTO", "DESCRIPCION", "ESTADO."
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        Carga.setText("Cargar");
+        Carga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CargaActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar producto"));
+
+        jLabel9.setText("Codigo:");
+
+        jLabel11.setText("Producto:");
+
+        jLabel12.setText("Descripcion:");
+
+        jTextField_CodigoAgre1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_CodigoAgre1ActionPerformed(evt);
+            }
+        });
+        jTextField_CodigoAgre1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_CodigoAgre1KeyTyped(evt);
+            }
+        });
+
+        jTextField_Producto1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_Producto1KeyTyped(evt);
+            }
+        });
+
+        jTextField_Descripcion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_Descripcion1ActionPerformed(evt);
+            }
+        });
+        jTextField_Descripcion1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_Descripcion1KeyTyped(evt);
+            }
+        });
+
+        jButton3.setText("Agregar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setText("Categoria");
+
+        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .add(18, 18, 18)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel11)
+                            .add(jLabel17))
+                        .add(75, 75, 75)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextField_Producto1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 229, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextField_Categoria2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 229, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(1, 1, 1)
+                        .add(jLabel12)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextField_Descripcion1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 229, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextField_CodigoAgre1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 229, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jLabel9))
+                .add(0, 53, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jButton3)
+                .add(19, 19, 19))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel17)
+                    .add(jTextField_Categoria2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(5, 5, 5)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel11)
+                    .add(jTextField_Producto1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jTextField_Descripcion1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jTextField_CodigoAgre1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jLabel12))
+                .add(18, 18, 18)
+                .add(jButton3))
+        );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,19 +436,20 @@ public class Inventario extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jSeparator1)
-                    .add(jScrollPane1)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
                         .add(jLabel7)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jLabel_Fecha))
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(Carga)
                             .add(jLabel6)
                             .add(layout.createSequentialGroup()
-                                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(32, 32, 32)
+                                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 727, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -239,39 +466,19 @@ public class Inventario extends javax.swing.JFrame {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
                     .add(jLabel_Fecha))
-                .add(28, 28, 28)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 258, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 263, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(1, 1, 1)
+                .add(Carga)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField_CodigoAgreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_CodigoAgreKeyTyped
-        // TODO add your handling code here:
-        int limite=10;
-        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
-        if((car<'0' || car>'9')||jTextField_CodigoAgre.getText().length()== limite) 
-        {evt.consume();}
-    }//GEN-LAST:event_jTextField_CodigoAgreKeyTyped
-
-    private void jTextField_ProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ProductoKeyTyped
-        // TODO add your handling code here:
-        int limite = 23;
-        char car = evt.getKeyChar();
-        if (!(car<'0' || car>'9')||jTextField_Producto.getText().length() == limite){evt.consume();}
-    }//GEN-LAST:event_jTextField_ProductoKeyTyped
-
-    private void jTextField_DescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_DescripcionKeyTyped
-        // TODO add your handling code here:
-        int limite = 40;
-        char car = evt.getKeyChar();
-        if (!(car<'0' || car>'9')||jTextField_Descripcion.getText().length() == limite){evt.consume();}
-    }//GEN-LAST:event_jTextField_DescripcionKeyTyped
 
     private void jTextField_CodigoElimKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_CodigoElimKeyTyped
         // TODO add your handling code here:
@@ -280,6 +487,55 @@ public class Inventario extends javax.swing.JFrame {
         if((car<'0' || car>'9')||jTextField_CodigoElim.getText().length()== limite) 
         {evt.consume();}
     }//GEN-LAST:event_jTextField_CodigoElimKeyTyped
+
+    private void jTextField_CodigoAgre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_CodigoAgre1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_CodigoAgre1ActionPerformed
+
+    private void jTextField_CodigoAgre1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_CodigoAgre1KeyTyped
+        // TODO add your handling code here:
+        int limite=10;
+        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')||jTextField_CodigoAgre.getText().length()== limite)
+        {evt.consume();}
+    }//GEN-LAST:event_jTextField_CodigoAgre1KeyTyped
+
+    private void jTextField_Producto1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_Producto1KeyTyped
+        // TODO add your handling code here:
+        int limite = 23;
+        char car = evt.getKeyChar();
+        if (!(car<'0' || car>'9')||jTextField_Producto.getText().length() == limite){evt.consume();}
+    }//GEN-LAST:event_jTextField_Producto1KeyTyped
+
+    private void jTextField_Descripcion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_Descripcion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_Descripcion1ActionPerformed
+
+    private void jTextField_Descripcion1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_Descripcion1KeyTyped
+        // TODO add your handling code here:
+        int limite = 40;
+        char car = evt.getKeyChar();
+        if (!(car<'0' || car>'9')||jTextField_Descripcion.getText().length() == limite){evt.consume();}
+    }//GEN-LAST:event_jTextField_Descripcion1KeyTyped
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Carga_agregar();
+        Agregar_articulo();
+        cargar_Jtable();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void CargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargaActionPerformed
+        // TODO add your handling code here:
+        cargar_Jtable();
+    }//GEN-LAST:event_CargaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        carga_eliminar();
+        eliminar();
+        cargar_Jtable();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,9 +572,20 @@ public class Inventario extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Carga;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -326,15 +593,27 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_Fecha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField_Categoria;
+    private javax.swing.JTextField jTextField_Categoria1;
+    private javax.swing.JTextField jTextField_Categoria2;
     private javax.swing.JTextField jTextField_CodigoAgre;
+    private javax.swing.JTextField jTextField_CodigoAgre1;
+    private javax.swing.JTextField jTextField_CodigoAgre2;
     private javax.swing.JTextField jTextField_CodigoElim;
     private javax.swing.JTextField jTextField_Descripcion;
+    private javax.swing.JTextField jTextField_Descripcion1;
+    private javax.swing.JTextField jTextField_Descripcion2;
     private javax.swing.JTextField jTextField_Producto;
+    private javax.swing.JTextField jTextField_Producto1;
+    private javax.swing.JTextField jTextField_Producto2;
     // End of variables declaration//GEN-END:variables
 }
