@@ -127,10 +127,10 @@ public class Inventario extends javax.swing.JFrame {
         }
      public void Carga_agregar(){
      
-     codigo = jTextField_CodigoAgre.getText();
-     categoria = jTextField_Categoria.getText();
-     producto = jTextField_Producto.getText();
-     descripcion = jTextField_Descripcion.getText();
+     codigo = jTextField_CodigoAgre1.getText();
+     categoria = jTextField_Categoria2.getText();
+     producto = jTextField_Producto1.getText();
+     descripcion = jTextField_Descripcion1.getText();
      estado = "0";
      }
      
@@ -227,6 +227,7 @@ public class Inventario extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jTextField_Categoria2 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -428,6 +429,13 @@ public class Inventario extends javax.swing.JFrame {
                 .add(jButton3))
         );
 
+        jButton5.setText("Volver");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -443,7 +451,10 @@ public class Inventario extends javax.swing.JFrame {
                         .add(jLabel_Fecha))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(Carga)
+                            .add(layout.createSequentialGroup()
+                                .add(Carga)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jButton5))
                             .add(jLabel6)
                             .add(layout.createSequentialGroup()
                                 .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -469,7 +480,9 @@ public class Inventario extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 263, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(1, 1, 1)
-                .add(Carga)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(Carga)
+                    .add(jButton5))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -496,7 +509,7 @@ public class Inventario extends javax.swing.JFrame {
         // TODO add your handling code here:
         int limite=10;
         char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
-        if((car<'0' || car>'9')||jTextField_CodigoAgre.getText().length()== limite)
+        if((car<'0' || car>'9')||jTextField_CodigoAgre1.getText().length()== limite)
         {evt.consume();}
     }//GEN-LAST:event_jTextField_CodigoAgre1KeyTyped
 
@@ -504,7 +517,7 @@ public class Inventario extends javax.swing.JFrame {
         // TODO add your handling code here:
         int limite = 23;
         char car = evt.getKeyChar();
-        if (!(car<'0' || car>'9')||jTextField_Producto.getText().length() == limite){evt.consume();}
+        if (!(car<'0' || car>'9')||jTextField_Producto1.getText().length() == limite){evt.consume();}
     }//GEN-LAST:event_jTextField_Producto1KeyTyped
 
     private void jTextField_Descripcion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_Descripcion1ActionPerformed
@@ -515,7 +528,7 @@ public class Inventario extends javax.swing.JFrame {
         // TODO add your handling code here:
         int limite = 40;
         char car = evt.getKeyChar();
-        if (!(car<'0' || car>'9')||jTextField_Descripcion.getText().length() == limite){evt.consume();}
+        if (!(car<'0' || car>'9')||jTextField_Descripcion1.getText().length() == limite){evt.consume();}
     }//GEN-LAST:event_jTextField_Descripcion1KeyTyped
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -536,6 +549,13 @@ public class Inventario extends javax.swing.JFrame {
         eliminar();
         cargar_Jtable();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        Pantalla_principal cancelar= new Pantalla_principal();
+        cancelar.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -573,47 +593,28 @@ public class Inventario extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Carga;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_Fecha;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField_Categoria;
-    private javax.swing.JTextField jTextField_Categoria1;
     private javax.swing.JTextField jTextField_Categoria2;
-    private javax.swing.JTextField jTextField_CodigoAgre;
     private javax.swing.JTextField jTextField_CodigoAgre1;
-    private javax.swing.JTextField jTextField_CodigoAgre2;
     private javax.swing.JTextField jTextField_CodigoElim;
-    private javax.swing.JTextField jTextField_Descripcion;
     private javax.swing.JTextField jTextField_Descripcion1;
-    private javax.swing.JTextField jTextField_Descripcion2;
-    private javax.swing.JTextField jTextField_Producto;
     private javax.swing.JTextField jTextField_Producto1;
-    private javax.swing.JTextField jTextField_Producto2;
     // End of variables declaration//GEN-END:variables
 }

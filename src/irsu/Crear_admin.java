@@ -263,7 +263,7 @@ public String rut;
         jLabel_Fecha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel_Fecha.setText("00/00/00");
 
-        jButton1.setText("Cancelar");
+        jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
