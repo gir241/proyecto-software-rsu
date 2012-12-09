@@ -33,10 +33,10 @@ public class Crear_usuario extends javax.swing.JFrame {
 
     
     public Boolean validacion(){
-    
-        if(jTextField_Nombres.getText().equals("")) return false;
-        if(jTextField_Apellidos.getText().equals("")) return false;
-        if(jTextField_email.getText().equals("")) return false;
+        
+        if(!jTextField_Nombres.getText().toString().isEmpty()) {return false;}
+        if(!jTextField_Apellidos.getText().toString().isEmpty()) {return false;}
+        if(!jTextField_email.getText().toString().isEmpty()){ return false;}
         
         return true;
     }
@@ -411,10 +411,14 @@ public class Crear_usuario extends javax.swing.JFrame {
           Boolean continuar= true;
           SQL consulta = new SQL();
           try {
-            if(consulta.validar("run_admin","ADMIN","run_admin",rut))  //enviar datos a validar
-            {
-                continuar=false;
-                JOptionPane.showMessageDialog(this,"El rut de usuario ya se encuentra ingresado");
+            try {
+                if(consulta.validar("run_admin","ADMIN","run_admin",rut))  //enviar datos a validar
+                {
+                    continuar=false;
+                    JOptionPane.showMessageDialog(this,"El rut de usuario ya se encuentra ingresado");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Crear_usuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (IOException ex) {
             Logger.getLogger(Crear_admin.class.getName()).log(Level.SEVERE, null, ex);

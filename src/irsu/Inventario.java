@@ -27,6 +27,7 @@ public class Inventario extends javax.swing.JFrame {
     String producto;
     String descripcion;
     String   estado;
+    String pass = "inforsu";
     
      public void cargar_Jtable(){
         
@@ -38,7 +39,7 @@ public class Inventario extends javax.swing.JFrame {
     try{
          Class.forName("com.mysql.jdbc.Driver").newInstance();
          con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+         ("jdbc:mysql://localhost/rsu_inventario","root",pass);
       try{
         st = con.createStatement();
         
@@ -101,7 +102,7 @@ public class Inventario extends javax.swing.JFrame {
     try{
          Class.forName("com.mysql.jdbc.Driver").newInstance();
          con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+         ("jdbc:mysql://localhost/rsu_inventario","root",pass);
       try{
         st = con.createStatement();
         st.executeUpdate("INSERT INTO ARTICULO Values ('"+codigo +"','"+categoria+
@@ -137,6 +138,10 @@ public class Inventario extends javax.swing.JFrame {
      estado = "0";
      }
      
+    
+    
+   
+     
      public void eliminar (){
      Statement st = null;
      Connection con = null;
@@ -144,16 +149,26 @@ public class Inventario extends javax.swing.JFrame {
     try{
          Class.forName("com.mysql.jdbc.Driver").newInstance();
          con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+         ("jdbc:mysql://localhost/rsu_inventario","root",pass);
       try{
           
         st = con.createStatement();
         
         
-        rs= st.executeQuery("SELECT codigo FROM ARTICULO WHERE codigo = '"+codigo+"';");  
-       
+        rs= st.executeQuery("SELECT * FROM ARTICULO WHERE codigo = '"+codigo+"';");  
+
                  
           if (rs.next()) {
+                     
+        String codigo_interno = rs.getString("codigo");
+        String categoria_interno = rs.getString("categoria");
+        String producto_interno = rs.getString("producto");
+        String descripcion_interno = rs.getString("descripcion");
+        String estado_interno = rs.getString("estado");
+        
+        st.executeUpdate("INSERT INTO Trash_ARTICULO Values ('"+codigo_interno +"','"+categoria_interno+
+            "','" + producto_interno+ "','"+ descripcion_interno+"','"+estado_interno+"');");
+        
         st.executeUpdate("DELETE FROM ARTICULO WHERE codigo = '"+codigo+"';"); 
         JOptionPane.showMessageDialog(null,"Dato eliminados Exitosamente", 
                 "alert", JOptionPane.OK_OPTION);}
@@ -539,13 +554,17 @@ public class Inventario extends javax.swing.JFrame {
       SQL consulta = new SQL();
       codigo = jTextField_CodigoAgre1.getText();
         try {
-            if(!consulta.validar("codigo","ARTICULO","codigo",codigo )){  
-            Carga_agregar();
-            Agregar_articulo();
-            cargar_Jtable();
-            }
-                  else{
-                     JOptionPane.showMessageDialog(this,"codigo de producto ya existe");
+            try {
+                if(!consulta.validar("codigo","ARTICULO","codigo",codigo )){  
+                Carga_agregar();
+                Agregar_articulo();
+                cargar_Jtable();
+                }
+                      else{
+                         JOptionPane.showMessageDialog(this,"codigo de producto ya existe");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (IOException ex) {
             Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);

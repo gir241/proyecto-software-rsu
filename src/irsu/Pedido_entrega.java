@@ -28,11 +28,82 @@ public class Pedido_entrega extends javax.swing.JFrame {
      * Creates new form Pedido_entrega
      */
     
+    
+    
     public String auxiliar;
-   public String envio;
-   private String prueba;
-   
-   
+    public String envio;
+    private String prueba;
+    public String id_user;
+    public String FechaPedido;
+    public String FechaEntrega;
+    private String pass = "inforsu";
+  
+    public void SolicitaEntrega(String codigo,String formula){    
+      Connection con = null;
+      ResultSet rs = null;
+      Statement st = null;
+      String consulta = "SELECT estado FROM ARTICULO WHERE codigo ='"+codigo+"'";
+    try{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();     
+         String resultado= null;
+         con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root",pass);
+      try{
+        st = con.createStatement();
+        rs = st.executeQuery(consulta);
+       // CARGA INFORMACION SI BASE DE DATOS EXSITE 
+      if(rs.next()){  
+          resultado = rs.getNString("estado");    
+           
+      if(resultado == "disposible" && formula == "prestado"){
+          int valor;
+          rs = st.executeQuery("SELECT * FROM PEDIDO ORDER BY id_pedido DESC LIMIT 1");
+          valor = Integer.parseInt(rs.getString("id_pedido"));
+          valor = valor +1;
+          st.executeUpdate("UPDATE ARTICULO SET estado = '"+formula+"' where codigo ='"+codigo+"'");
+          st.executeUpdate("INSERT PEDIDO VALUES ('"+valor+"','"+codigo+"','"+id_user+"','"+FechaPedido+"','"+null);  
+          JOptionPane.showMessageDialog(this,"Prestamo realizado");
+          
+      }
+      else{
+          if(resultado == "prestado" && formula =="prestado")
+          {
+              JOptionPane.showMessageDialog(this,"El producto no se encuentra disponible");
+          }
+          if(resultado == "prestado" && formula =="disponible")
+          {
+              st.executeUpdate("UPDATE ARTICULO SET estado = '"+formula+"' where codigo ='"+codigo+"'");
+               st.executeUpdate("UPDATE PEDIDO SET fecha_entrega = '"+FechaEntrega+"' where id_usuario='"+id_user+"'"
+                       + " AND id_producto = '"+codigo+"'");
+              JOptionPane.showMessageDialog(this,"El producto volvio a estar disponible");
+          }
+       }
+      }
+          else{
+          JOptionPane.showMessageDialog(this,"El codigo del producto no se encuentra");
+          }
+               
+      }
+      catch (SQLException s){
+
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error");
+
+        //SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
+
+    }
+      finally{
+          rs.close();
+          con.close();
+          st.close();
+      }
+  }
+        catch (Exception e){
+        e.printStackTrace();
+    }   
+    
+  }
    
     
     public void consulta_datos(String consulta, String condicion ,String variable){
@@ -84,7 +155,7 @@ public class Pedido_entrega extends javax.swing.JFrame {
     
     
     public void setete(String r){
-   
+   id_user = r;
    jTetxField_Rut.setText(r);
    consulta_datos("nombre","run_usuario",r);
    jTetxField_Nombre.setText(auxiliar);
@@ -269,6 +340,11 @@ public class Pedido_entrega extends javax.swing.JFrame {
         });
 
         jButton2.setText("Solicitar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setForeground(new java.awt.Color(64, 64, 64));
         jLabel9.setText("(Ingrese codigo del producto)");
@@ -316,6 +392,11 @@ public class Pedido_entrega extends javax.swing.JFrame {
         });
 
         jButton3.setText("Entregar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setForeground(new java.awt.Color(64, 64, 64));
         jLabel4.setText("(Ingrese codigo del producto)");
@@ -326,17 +407,19 @@ public class Pedido_entrega extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField_CodigoEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField_CodigoEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(43, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(22, 22, 22))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(47, 47, 47))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,11 +428,11 @@ public class Pedido_entrega extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTextField_CodigoEnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTable1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -691,6 +774,16 @@ public class Pedido_entrega extends javax.swing.JFrame {
         jTextField_Apellido.setText(jTextField_Apellido.getText().toUpperCase());//transorma a mayusculas
     }//GEN-LAST:event_jTextField_ApellidoKeyReleased
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        SolicitaEntrega(jTextField_CodigoSol.getText().toString(),"prestado");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+         SolicitaEntrega(jTextField_CodigoEnt.getText().toString(),"disponible");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -755,7 +848,7 @@ public class Pedido_entrega extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTetxField_Nombre;
-    private javax.swing.JTextField jTetxField_Rut;
+    public javax.swing.JTextField jTetxField_Rut;
     private javax.swing.JTextField jTextField_Actividad;
     private javax.swing.JTextField jTextField_Apellido;
     private javax.swing.JTextField jTextField_Carrera;

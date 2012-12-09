@@ -6,19 +6,35 @@ import javax.swing.JOptionPane;
 
 
 public class SQL{
-    
+   
+    private String pass = "inforsu";
+   
   public void CrearBDD(){  
       Connection con = null;
+      ResultSet rs = null;
+      Statement st = null;
+      String valida = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'rsu_inventario'";
     try{
          Class.forName("com.mysql.jdbc.Driver").newInstance();
+       
          con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/","root","inforsu");
+         ("jdbc:mysql://localhost/","root",pass);
       try{
-        Statement st = con.createStatement();
+        st = con.createStatement();
+        rs = st.executeQuery(valida);
+       // CARGA INFORMACION SI BASE DE DATOS EXSITE 
+      if(!rs.next()){  
+        
         st.executeUpdate("CREATE DATABASE rsu_inventario");
         JOptionPane.showMessageDialog(null,"Base De Datos Creada Exitosamente", 
                 "alert", JOptionPane.OK_OPTION);
+           // CARGA INFORMACION A LA BASE DE DATOS
+         CrearTablas();
+         CrearTrashTablas();
+         carga_default();
          }  
+   
+      }
       catch (SQLException s){
 
           SQL_FORM error = new SQL_FORM();
@@ -28,6 +44,11 @@ public class SQL{
       JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
 
     }
+      finally{
+          rs.close();
+          con.close();
+          st.close();
+      }
   }
         catch (Exception e){
         e.printStackTrace();
@@ -36,30 +57,37 @@ public class SQL{
 
   public void CrearTablas(){
     Connection con = null;
+    Statement st = null;
+    String USER = "CREATE TABLE USUARIO (run_usuario VARCHAR(20) NOT NULL PRIMARY KEY, nombre VARCHAR(45)," +
+          "apellido VARCHAR(45),actividad varchar(20),comuna varchar(30),carrera varchar(10) ,"+
+          "telefono varchar(15),celular varchar(20),direccion VARCHAR(45),email varchar(50));";
+    
+    String ADMIN = "CREATE TABLE ADMIN (run_admin VARCHAR(20) NOT NULL PRIMARY KEY, nombre VARCHAR(45)," +
+          "apellido VARCHAR(45),actividad varchar(20),comuna varchar(30),carrera varchar(10) ,"+
+          "telefono varchar(15),celular varchar(20),direccion VARCHAR(45),email varchar(50),contraseña varchar(50));";
+    
+    String ARTICULO = "CREATE TABLE ARTICULO (codigo VARCHAR(40) NOT NULL PRIMARY KEY, categoria VARCHAR(45)," +
+          "producto VARCHAR(50), descripcion varchar(50),estado VARCHAR(12));";
+    
+    String PEDIDO = "CREATE TABLE PEDIDO (id_pedido VARCHAR(40) NOT NULL PRIMARY KEY,id_producto VARCHAR(40)"+
+                "NOT NULL REFERENCES ARTICULO (codigo)  ON DELETE CASCADE ON UPDATE CASCADE," +
+          "id_usuario varchar(20) NOT NULL REFERENCES USUARIO(run_usuario)  ON DELETE CASCADE ON UPDATE CASCADE"
+        + ",fecha_pedido varchar(15) ,fecha_entrega varchar(15));";
     try{
          Class.forName("com.mysql.jdbc.Driver").newInstance();
          con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+         ("jdbc:mysql://localhost/rsu_inventario","root",pass);
       try{
-        Statement st = con.createStatement();
-        st.executeUpdate("CREATE TABLE USUARIO (run_usuario VARCHAR(20) NOT NULL PRIMARY KEY, nombre VARCHAR(45)," +
-          "apellido VARCHAR(45),actividad varchar(20),comuna varchar(30),carrera varchar(10) ,"+
-          "telefono varchar(15),celular varchar(20),direccion VARCHAR(45),email varchar(50));");
+        st = con.createStatement();
+        st.executeUpdate(USER);
         
-         st.executeUpdate("CREATE TABLE ADMIN (run_admin VARCHAR(20) NOT NULL PRIMARY KEY, nombre VARCHAR(45)," +
-          "apellido VARCHAR(45),actividad varchar(20),comuna varchar(30),carrera varchar(10) ,"+
-          "telefono varchar(15),celular varchar(20),direccion VARCHAR(45),email varchar(50),contraseña varchar(50));");
+         st.executeUpdate(ADMIN);
         
-        st.executeUpdate("CREATE TABLE ARTICULO (codigo VARCHAR(40) NOT NULL PRIMARY KEY, categoria VARCHAR(45)," +
-          "producto VARCHAR(50), descripcion varchar(50),estado VARCHAR(12));");
+        st.executeUpdate(ARTICULO);
         
-        st.executeUpdate("CREATE TABLE PEDIDO (id_pedido VARCHAR(40) NOT NULL PRIMARY KEY,id_producto VARCHAR(40)"+
-                "NOT NULL REFERENCES ARTICULO (codigo)  ON DELETE CASCADE ON UPDATE CASCADE," +
-          "id_usuario varchar(20) NOT NULL REFERENCES USUARIO(run_usuario)  ON DELETE CASCADE ON UPDATE CASCADE"
-        + ",fecha_pedido varchar(15) ,fecha_entrega varchar(15));");
+        st.executeUpdate(PEDIDO);
         
         
-  
         JOptionPane.showMessageDialog(null,"tablas Creadas Exitosamente", 
                 "alert", JOptionPane.OK_OPTION);
          }  
@@ -72,82 +100,79 @@ public class SQL{
       JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
 
     }
+       finally{
+          con.close();
+          st.close();
+         
+      }
   }
         catch (Exception e){
         e.printStackTrace();
     }
   
   }
-
-  //EJEMPLO NO USAR
-  public void Agregar_datos(){
+  
+  public void CrearTrashTablas(){
     Connection con = null;
-    try{
-         Class.forName("com.mysql.jdbc.Driver").newInstance();
-         con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
-      try{
-        Statement st = con.createStatement();
-        st.executeUpdate("INSERT INTO ADMIN VALUES ('174183767','marco','molina','estudiante','santiago',"+
-                "'2130','3030303','30303030','los valdios 1030','marcotutu@hotmail.com',contraseña);");
-        
-         
-        JOptionPane.showMessageDialog(null,"Datos agregados Exitosamente", 
-                "alert", JOptionPane.OK_OPTION);
-         }  
-      catch (SQLException s){
-
-          SQL_FORM error = new SQL_FORM();
-      JOptionPane.showMessageDialog(error,"error al ingresar datos");
-
-        //SQL_FORM error = new SQL_FORM();
-      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
-
-    }
-  }
-        catch (Exception e){
-        e.printStackTrace();
-    }
-  }
-//EJEMPLO NO USAR
-    public void Eliminar_datos(){
-    Connection con = null;
-    try{
-         Class.forName("com.mysql.jdbc.Driver").newInstance();
-         con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
-      try{
-        Statement st = con.createStatement();
-        st.executeUpdate("DELETE FROM ADMIN WHERE nombre = 'marco';");
-        
-         
-        JOptionPane.showMessageDialog(null,"Datos eliminados Exitosamente", 
-                "alert", JOptionPane.OK_OPTION);
-         }  
-      catch (SQLException s){
-
-          SQL_FORM error = new SQL_FORM();
-      JOptionPane.showMessageDialog(error,"error al eliminar datos");
-
-        //SQL_FORM error = new SQL_FORM();
-      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
-
-    }
-  }
-        catch (Exception e){
-        e.printStackTrace();
-    }
-  }
+    Statement st = null;
+    String USER = "CREATE TABLE Trash_USUARIO (run_usuario VARCHAR(20) NOT NULL PRIMARY KEY, nombre VARCHAR(45)," +
+          "apellido VARCHAR(45),actividad varchar(20),comuna varchar(30),carrera varchar(10) ,"+
+          "telefono varchar(15),celular varchar(20),direccion VARCHAR(45),email varchar(50));";
     
-    public void carga_default (){
+    String ADMIN = "CREATE TABLE Trash_ADMIN (run_admin VARCHAR(20) NOT NULL PRIMARY KEY, nombre VARCHAR(45)," +
+          "apellido VARCHAR(45),actividad varchar(20),comuna varchar(30),carrera varchar(10) ,"+
+          "telefono varchar(15),celular varchar(20),direccion VARCHAR(45),email varchar(50),contraseña varchar(50));";
+    
+    String ARTICULO = "CREATE TABLE Trash_ARTICULO (codigo VARCHAR(40) NOT NULL PRIMARY KEY, categoria VARCHAR(45)," +
+          "producto VARCHAR(50), descripcion varchar(50),estado VARCHAR(12));";
+    
+    try{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+         con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root",pass);
+      try{
+        st = con.createStatement();
+        st.executeUpdate(USER);
+        
+         st.executeUpdate(ADMIN);
+        
+        st.executeUpdate(ARTICULO);                
+        
+        JOptionPane.showMessageDialog(null,"tablas Creadas Tablas Trash Exitosamente", 
+                "alert", JOptionPane.OK_OPTION);
+         }  
+      catch (SQLException s){
+
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error al crear tablas");
+
+        //SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
+
+    }
+      finally{
+          con.close();
+          st.close();
+         
+      }
+      
+  }
+        catch (Exception e){
+        e.printStackTrace();
+    }
+  
+  }
+     
+    public void carga_default(){
     
         Connection con = null;
+        Statement st = null;
     try{
          Class.forName("com.mysql.jdbc.Driver").newInstance();
          con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+         ("jdbc:mysql://localhost/rsu_inventario","root",pass);
       try{
-        Statement st = con.createStatement();
+         st = con.createStatement();
          st.executeUpdate("INSERT INTO ADMIN VALUES ('174183767','marco','molina','estudiante','santiago',"+
                 "'2130','3030303','30303030','los valdios 1030','marcotutu@hotmail.com',12345);");
          st.executeUpdate("INSERT INTO USUARIO VALUES ('178350781','gonzalo','pradena','estudiante','santiago',"+
@@ -169,6 +194,11 @@ public class SQL{
       JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
 
     }
+      finally{
+          con.close();
+          st.close();
+         
+      }
   }
         catch (Exception e){
         e.printStackTrace();
@@ -180,31 +210,41 @@ public class SQL{
     
     
      boolean validar(String busqueda,String Tabla,String llave_consulta,
-             String llave_busqueda)  throws IOException{
-        try
+             String llave_busqueda)  throws IOException, SQLException{
+         
+          Connection con = null;
+          ResultSet resultadosConsulta = null;
+          Statement instruccionSQL = null;
+         try
 
         {
 
-              Connection con = null;
+             
 
             con = DriverManager.getConnection
          ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
 
             // Preparamos la consulta
-
-            Statement instruccionSQL = con.createStatement();
-
-            ResultSet resultadosConsulta = instruccionSQL.executeQuery ("SELECT "+busqueda+
+            
+            instruccionSQL = con.createStatement();
+            
+            resultadosConsulta = instruccionSQL.executeQuery ("SELECT "+busqueda+
                     " FROM "+Tabla+" WHERE "+llave_consulta+" = '"+llave_busqueda+"'");
  
 
-            if( resultadosConsulta.next() )        // si es valido el primer reg. hay una fila, tons el usuario y su pw existen
+ 
 
-                return true;        //usuario validado correctamente
+            if( resultadosConsulta.next() )    {    // si es valido el primer reg. hay una fila, tons el usuario y su pw existen
+               con.close();
+               resultadosConsulta.close();
+               instruccionSQL.close();;
+                return true;    }    //usuario validado correctamente
 
-            else
-
-                return false;        //usuario validado incorrectamente
+                else{
+                   con.close();
+                   resultadosConsulta.close();
+                   instruccionSQL.close();
+                return false;  }      //usuario validado incorrectamente
 
                  
 
@@ -212,9 +252,17 @@ public class SQL{
 
         {
             e.printStackTrace();
+            con.close();
+            resultadosConsulta.close();
+            instruccionSQL.close();
             return false;
         }
+     
     }
+     
+     
+     
+     public void EntregarProducto(String codigo){}
 }
     
     
