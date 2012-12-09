@@ -51,7 +51,7 @@ public class SQL{
           "telefono varchar(15),celular varchar(20),direccion VARCHAR(45),email varchar(50),contraseña varchar(50));");
         
         st.executeUpdate("CREATE TABLE ARTICULO (codigo VARCHAR(40) NOT NULL PRIMARY KEY, categoria VARCHAR(45)," +
-          "producto VARCHAR(50), descripcion varchar(50),estado VARCHAR(2));");
+          "producto VARCHAR(50), descripcion varchar(50),estado VARCHAR(12));");
         
         st.executeUpdate("CREATE TABLE PEDIDO (id_pedido VARCHAR(40) NOT NULL PRIMARY KEY,id_producto VARCHAR(40)"+
                 "NOT NULL REFERENCES ARTICULO (codigo)  ON DELETE CASCADE ON UPDATE CASCADE," +
@@ -138,6 +138,83 @@ public class SQL{
         e.printStackTrace();
     }
   }
+    
+    public void carga_default (){
+    
+        Connection con = null;
+    try{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+         con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+      try{
+        Statement st = con.createStatement();
+         st.executeUpdate("INSERT INTO ADMIN VALUES ('174183767','marco','molina','estudiante','santiago',"+
+                "'2130','3030303','30303030','los valdios 1030','marcotutu@hotmail.com',12345);");
+         st.executeUpdate("INSERT INTO USUARIO VALUES ('178350781','gonzalo','pradena','estudiante','santiago',"+
+                "'2130','3030303','30303030','los holos 1313','gonzalo@gmail.com');");
+         st.executeUpdate("INSERT INTO ARTICULO VALUES ('123456','PC','notebook','malo','disponible');");
+         st.executeUpdate("INSERT INTO ARTICULO VALUES ('123457','PC','notebook','bueno','disponible');");
+         st.executeUpdate("INSERT INTO PEDIDO VALUES ('0001','123456','178350781','11-12-12','12-12-12');");
+         st.executeUpdate("UPDATE ARTICULO SET ESTADO = 'prestado' WHERE codigo ='123456';");
+         
+        JOptionPane.showMessageDialog(null,"Datos agregados Exitosamente", 
+                "alert", JOptionPane.OK_OPTION);
+         }  
+      catch (SQLException s){
+
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error al ingresar datos");
+
+        //SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
+
+    }
+  }
+        catch (Exception e){
+        e.printStackTrace();
+    }
+    
+    
+    
+    }
+    
+    
+     boolean validar(String busqueda,String Tabla,String llave_consulta,
+             String llave_busqueda)  throws IOException{
+        try
+
+        {
+
+              Connection con = null;
+
+            con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+
+            // Preparamos la consulta
+
+            Statement instruccionSQL = con.createStatement();
+
+            ResultSet resultadosConsulta = instruccionSQL.executeQuery ("SELECT "+busqueda+
+                    " FROM "+Tabla+" WHERE "+llave_consulta+" = '"+llave_busqueda+"'");
+ 
+
+            if( resultadosConsulta.next() )        // si es valido el primer reg. hay una fila, tons el usuario y su pw existen
+
+                return true;        //usuario validado correctamente
+
+            else
+
+                return false;        //usuario validado incorrectamente
+
+                 
+
+        } catch (Exception e)
+
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
     
     

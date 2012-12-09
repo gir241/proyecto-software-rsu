@@ -5,10 +5,13 @@
 package irsu;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -27,6 +30,15 @@ public String rut;
     public String direccion;
     public String email;
     public String contraseña;
+    
+    public Boolean validacion(){
+    
+        if(jTextField_Nombres.getText().equals("")) return false;
+        if(jTextField_Apellidos.getText().equals("")) return false;
+        if(jTextField_email.getText().equals("")) return false;
+        
+        return true;
+    }
     
     public void actualizar_variables(){
     rut = rud.getText().toString() + dv.getText().toString() ;
@@ -136,9 +148,9 @@ public String rut;
         setMaximumSize(new java.awt.Dimension(682, 494));
         setPreferredSize(new java.awt.Dimension(682, 494));
 
-        jLabel8.setText("Apellidos:");
+        jLabel8.setText("(*) Apellidos:");
 
-        jLabel15.setText("email:");
+        jLabel15.setText("(*) email:");
 
         jTextField_Telefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -150,11 +162,11 @@ public String rut;
 
         jLabel13.setText("Celular:");
 
-        jLabel3.setText("Nombres:");
+        jLabel3.setText("(*) Nombres:");
 
         jLabel14.setText("Telefono:");
 
-        jLabel4.setText("Run:");
+        jLabel4.setText("(*) Run:");
 
         dv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -435,19 +447,35 @@ public String rut;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_GuardarActionPerformed
-        Crear_admin error = new Crear_admin();
-        String a = jPasswordField_Contraseña.getText();
-        String b = jPasswordField_RepContraseña.getText();
+
+        Boolean continuar= true;
+        SQL consulta = new SQL();
+        rut = rud.getText().toString() + dv.getText().toString() ;
+        String a =  new String(jPasswordField_Contraseña.getPassword());
+        String b =  new String(jPasswordField_RepContraseña.getPassword());
         validado_contraseña ctr = new validado_contraseña();
         if(ctr.ctr(a, b)== false)
         {
-          JOptionPane.showMessageDialog(error,"Contraseñas Distintas");  
+          JOptionPane.showMessageDialog(this,"Contraseñas Distintas");  
+          continuar = false;
         }
-            
-        Boolean continuar= true;
-   
+        try {
+            if(consulta.validar("run_admin","ADMIN","run_admin",rut))  //enviar datos a validar
+            {
+                continuar=false;
+                JOptionPane.showMessageDialog(this,"El rut de administrador ya se encuentra ingresado");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Crear_admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+   if(validacion())
+   {
+       JOptionPane.showMessageDialog(this,"Uno o mas campos obligatorios (*) se encuentran vacios");
+       continuar = false;}
+        
     if(rud.getText().equals("")){
-      JOptionPane.showMessageDialog(error,"Debe completar el run");
+      JOptionPane.showMessageDialog(this,"Debe completar el run");
       continuar= false;
     }
     else{
@@ -460,7 +488,7 @@ public String rut;
             // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
            }
            else{
-            JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
+            JOptionPane.showMessageDialog(this,"Ingrese correctamente el RUN");
              continuar= false;
            }
     }
@@ -538,6 +566,7 @@ public String rut;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Pantalla_principal cancelar= new Pantalla_principal();
+        
             cancelar.setVisible(true); 
             Crear_admin.this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

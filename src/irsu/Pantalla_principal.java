@@ -17,40 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class Pantalla_principal extends javax.swing.JFrame {
     
-      boolean validarUsuario(String rut)  throws IOException{
-        try
-
-        {
-
-              Connection con = null;
-
-            con = DriverManager.getConnection
-         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
-
-            // Preparamos la consulta
-
-            Statement instruccionSQL = con.createStatement();
-
-            ResultSet resultadosConsulta = instruccionSQL.executeQuery ("SELECT run_usuario FROM USUARIO WHERE run_usuario='"+rut+"'");
- 
-
-            if( resultadosConsulta.next() )        // si es valido el primer reg. hay una fila, tons el usuario y su pw existen
-
-                return true;        //usuario validado correctamente
-
-            else
-
-                return false;        //usuario validado incorrectamente
-
-                 
-
-        } catch (Exception e)
-
-        {
-            e.printStackTrace();
-            return false;
-        }
-    }
+     
 
     /**
      * Creates new form NewJFrame
@@ -331,6 +298,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
         int rut1 = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
         String verificador = dv.getText();//guardo digito verificador en digito del tipo string
         validaRut comprobar = new validaRut();//instancio la clase validaRut
+        SQL consulta = new SQL();
        
            if(comprobar.digitoVerificador(rut1).equals(verificador)){
             
@@ -342,7 +310,8 @@ public class Pantalla_principal extends javax.swing.JFrame {
                     {
                         rut = rud.getText().toString() + dv.getText().toString() ;
                         // Si el usuario si fue validado correctamente
-                        if( validarUsuario(rut))    //enviar datos a validar
+                        if( consulta.validar("run_usuario","USUARIO",
+                                "run_usuario",rut))  //enviar datos a validar
                         {
                             // Codigo para mostrar la ventana principal
                             

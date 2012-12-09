@@ -5,10 +5,13 @@
 package irsu;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,6 +31,15 @@ public class Crear_usuario extends javax.swing.JFrame {
     public String direccion;
     public String email;
 
+    
+    public Boolean validacion(){
+    
+        if(jTextField_Nombres.getText().equals("")) return false;
+        if(jTextField_Apellidos.getText().equals("")) return false;
+        if(jTextField_email.getText().equals("")) return false;
+        
+        return true;
+    }
     
     public void actualizar_variables(){
     rut = rud.getText() + dv.getText();
@@ -133,13 +145,13 @@ public class Crear_usuario extends javax.swing.JFrame {
 
         jLabel6.setText("Informatica Responsabilidad Social Universitaria");
 
-        jLabel3.setText("Nombres:");
+        jLabel3.setText("*Nombres:");
 
-        jLabel4.setText("Run:");
+        jLabel4.setText("*Run:");
 
         jLabel7.setText("Carrera:");
 
-        jLabel8.setText("Apellidos:");
+        jLabel8.setText("*Apellidos:");
 
         jLabel9.setText("Actividad:");
 
@@ -193,7 +205,7 @@ public class Crear_usuario extends javax.swing.JFrame {
 
         jLabel14.setText("Telefono:");
 
-        jLabel15.setText("email:");
+        jLabel15.setText("*email:");
 
         jTextField_Telefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -316,7 +328,7 @@ public class Crear_usuario extends javax.swing.JFrame {
                                                 .add(jLabel15)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                                 .add(jTextField_email, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 207, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 89, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 83, Short.MAX_VALUE)
                         .add(jLabel_Fecha)))
                 .addContainerGap())
         );
@@ -397,11 +409,23 @@ public class Crear_usuario extends javax.swing.JFrame {
     private void jButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_GuardarActionPerformed
         // TODO add your handling code here:
           Boolean continuar= true;
-    Crear_admin error = new Crear_admin();
+          SQL consulta = new SQL();
+          try {
+            if(consulta.validar("run_admin","ADMIN","run_admin",rut))  //enviar datos a validar
+            {
+                continuar=false;
+                JOptionPane.showMessageDialog(this,"El rut de usuario ya se encuentra ingresado");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Crear_admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+;
     if(rud.getText().equals("")){
-      JOptionPane.showMessageDialog(error,"Debe completar el run");
+      JOptionPane.showMessageDialog(this,"Debe completar el run");
       continuar= false;
     }
+     if(validacion())
+   {continuar = false;}
     else{
         int rut = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
         String verificador = dv.getText();//guardo digito verificador en digito del tipo string
@@ -412,7 +436,7 @@ public class Crear_usuario extends javax.swing.JFrame {
             // en vez de que nos envie ese mensaje nos puede mandar que esta correcto en un label con algun signo positivo
            }
            else{
-            JOptionPane.showMessageDialog(error,"Ingrese correctamente el RUN");
+            JOptionPane.showMessageDialog(this,"Ingrese correctamente el RUN");
              continuar= false;
            }
     }

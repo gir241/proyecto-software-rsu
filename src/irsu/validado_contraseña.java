@@ -12,9 +12,9 @@ public class validado_contraseña {
     
     public boolean ctr (String a, String b)
     {
-      if (a.equals(b)|| !a.equals("")|| !b.equals("")) 
-          return false;
-      else 
+      if (a.equals(b)&& !b.equals(""))
           return true;
+      else 
+          return false;
     }
 }

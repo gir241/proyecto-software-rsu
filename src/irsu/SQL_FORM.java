@@ -98,6 +98,7 @@ public class SQL_FORM extends javax.swing.JFrame {
         SQL sql = new SQL();
         sql.CrearBDD();// TODO add your handling code here:
         sql.CrearTablas();
+        sql.carga_default();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

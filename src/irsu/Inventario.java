@@ -4,11 +4,14 @@
  */
 package irsu;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -77,7 +80,7 @@ public class Inventario extends javax.swing.JFrame {
       catch (SQLException s){
 
           SQL_FORM error = new SQL_FORM();
-      JOptionPane.showMessageDialog(error,"error en cargar inventario");
+      JOptionPane.showMessageDialog(error,"error en la base de datos");
 
       JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
 
@@ -533,9 +536,21 @@ public class Inventario extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Carga_agregar();
-        Agregar_articulo();
-        cargar_Jtable();
+      SQL consulta = new SQL();
+      codigo = jTextField_CodigoAgre1.getText();
+        try {
+            if(!consulta.validar("codigo","ARTICULO","codigo",codigo )){  
+            Carga_agregar();
+            Agregar_articulo();
+            cargar_Jtable();
+            }
+                  else{
+                     JOptionPane.showMessageDialog(this,"codigo de producto ya existe");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void CargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargaActionPerformed
