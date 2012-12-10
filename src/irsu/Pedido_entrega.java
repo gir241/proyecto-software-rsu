@@ -216,7 +216,7 @@ public class Pedido_entrega extends javax.swing.JFrame {
             DefaultTableModel modelo = new DefaultTableModel();
              jTable1.setModel(modelo);
             //creamos la columnas de nuestra tabla:
-                  modelo.addColumn("CODIGO PRODUCTO");
+                  modelo.addColumn("CODIGO PEDIDO");
                   modelo.addColumn("NOMBRE");
                   modelo.addColumn("FECHA PEDIDO");
                   modelo.addColumn("FECHA PEDIDO");
