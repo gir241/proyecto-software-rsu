@@ -30,13 +30,14 @@ public class Pedido_entrega extends javax.swing.JFrame {
      * Creates new form Pedido_entrega
      */
     
-    
+    public Pantalla_principal rut2 = new Pantalla_principal();
+    public Fecha iniciar = new Fecha();
     
     public String auxiliar;
     public String envio;
-    private String prueba;
-    public String id_user;
-    public String FechaPedido;
+    private String prueba;    
+    public String id_user = rut2.rut;
+    public String FechaPedido=iniciar.fechaActual();
     public String FechaEntrega;
     private String pass = "inforsu";
     
@@ -703,9 +704,7 @@ public class Pedido_entrega extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
