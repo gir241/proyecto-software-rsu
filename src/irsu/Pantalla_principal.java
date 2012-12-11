@@ -23,7 +23,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     
-    public String rut;
+    public static String rut;
     public String contraseña;
      
     public Pantalla_principal() {
@@ -288,7 +288,7 @@ public class Pantalla_principal extends javax.swing.JFrame {
     private void jButton_IngresarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_IngresarUserActionPerformed
 
         // TODO add your handling code here:
-        /*
+        
         Boolean continuar= true;        
     Crear_admin error = new Crear_admin();
     if(rud.getText().equals("")){
@@ -350,11 +350,11 @@ public class Pantalla_principal extends javax.swing.JFrame {
              continuar= false;
            }
     }
-    * */
+    
         
-        Pedido_entrega ped = new Pedido_entrega();
-         ped.setVisible(true);
-         Pantalla_principal.this.dispose();
+        //Pedido_entrega ped = new Pedido_entrega();
+        // ped.setVisible(true);
+        // Pantalla_principal.this.dispose();
         
     }//GEN-LAST:event_jButton_IngresarUserActionPerformed
 
