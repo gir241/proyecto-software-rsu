@@ -69,9 +69,10 @@ public class SQL{
     String ARTICULO = "CREATE TABLE ARTICULO (codigo VARCHAR(40) NOT NULL PRIMARY KEY, categoria VARCHAR(45)," +
           "producto VARCHAR(50), descripcion varchar(50),estado VARCHAR(12));";
     
-    String PEDIDO = "CREATE TABLE PEDIDO (id_pedido VARCHAR(40) NOT NULL PRIMARY KEY,id_producto VARCHAR(40)"+
-                "NOT NULL REFERENCES ARTICULO (codigo)  ON DELETE CASCADE ON UPDATE CASCADE," +
-          "id_usuario varchar(20) NOT NULL REFERENCES USUARIO(run_usuario)  ON DELETE CASCADE ON UPDATE CASCADE"
+    String PEDIDO = "CREATE TABLE PEDIDO (id_pedido VARCHAR(40) NOT NULL PRIMARY KEY,"
+            + "id_producto VARCHAR(20),id_usuario varchar (20), "
+            + "FOREIGN KEY (id_producto) REFERENCES ARTICULO(codigo)," 
+            +  "FOREIGN KEY(id_usuario) REFERENCES USUARIO(run_usuario)"
         + ",fecha_pedido varchar(15) ,fecha_entrega varchar(15));";
     try{
          Class.forName("com.mysql.jdbc.Driver").newInstance();

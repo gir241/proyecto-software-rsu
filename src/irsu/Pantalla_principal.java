@@ -288,7 +288,8 @@ public class Pantalla_principal extends javax.swing.JFrame {
     private void jButton_IngresarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_IngresarUserActionPerformed
 
         // TODO add your handling code here:
-        Boolean continuar= true;
+        /*
+        Boolean continuar= true;        
     Crear_admin error = new Crear_admin();
     if(rud.getText().equals("")){
       JOptionPane.showMessageDialog(error,"Debe completar el run");
@@ -349,6 +350,12 @@ public class Pantalla_principal extends javax.swing.JFrame {
              continuar= false;
            }
     }
+    * */
+        
+        Pedido_entrega ped = new Pedido_entrega();
+         ped.setVisible(true);
+         Pantalla_principal.this.dispose();
+        
     }//GEN-LAST:event_jButton_IngresarUserActionPerformed
 
     private void crear_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crear_adminActionPerformed

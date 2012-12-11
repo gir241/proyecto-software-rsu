@@ -97,6 +97,7 @@ public class SQL_FORM extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         SQL sql = new SQL();
         sql.CrearBDD();// TODO add your handling code here:
+        sql.CrearTablas();
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
