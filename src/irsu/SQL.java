@@ -68,7 +68,7 @@ public class SQL{
     
     String PROYECTO = "CREATE TABLE PROYECTO (codigo_proyecto varchar(20)NOT NULL PRIMARY KEY,nombre VARCHAR(20) , "
             + "encargado varchar(20),descripcion VARCHAR(45),"
-            + "presupuesto varchar(30),FOREIGN KEY(encargado) REFERENCES ADMIN(run_admin) );";
+            + "presupuesto varchar(30),estado varchar(20),FOREIGN KEY(encargado) REFERENCES ADMIN(run_admin) );";
     
     String ARTICULO = "CREATE TABLE ARTICULO (codigo VARCHAR(40) NOT NULL PRIMARY KEY,codigoutem VARCHAR(40), categoria VARCHAR(45)," +
           "producto VARCHAR(50), descripcion varchar(50),estado VARCHAR(12));";

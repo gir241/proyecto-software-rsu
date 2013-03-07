@@ -375,7 +375,7 @@ public class Busqueda_usuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         String query ="";
         
-        if(Tnombre.getText().length() == 0 && Tapellido.getText().length() == 0 && Trut.getText().length() == 0)
+         if(Tnombre.getText().length() == 0 && Tapellido.getText().length() == 0 && Trut.getText().length() == 0)
         {
         JOptionPane.showMessageDialog(null, "Debe escribir almenos un campo para realizar la busqueda");
         }
@@ -384,12 +384,40 @@ public class Busqueda_usuario extends javax.swing.JFrame {
              query="SELECT * FROM USUARIO WHERE (nombre LIKE '"+Tnombre.getText()+"%')";
              cargar_usuario(query);
         }
+              if(Tnombre.getText().length() == 0 && Tapellido.getText().length() > 0 && Trut.getText().length() == 0)
+        {
+             query="SELECT * FROM USUARIO WHERE (apellido LIKE '"+Tapellido.getText()+"%')";
+             cargar_usuario(query);
+        }
+              if(Tnombre.getText().length() == 0 && Tapellido.getText().length() == 0 && Trut.getText().length() > 0)
+        {
+             query="SELECT * FROM USUARIO WHERE (run_usuario LIKE '"+Trut.getText()+"%')";
+             cargar_usuario(query);
+        }
+              /* DOS CRITERIOS DE BUSQUEDA
+               * AB
+               * BC
+               * AC
+               */
         if(Tnombre.getText().length() > 0 && Tapellido.getText().length() > 0 && Trut.getText().length() == 0)
         {
              query="SELECT * FROM USUARIO WHERE (nombre LIKE '"+Tnombre.getText()+"%') "
                      + "AND (apellido LIKE '"+Tapellido.getText()+"%') ";
              cargar_usuario(query);
         }
+         if(Tnombre.getText().length() > 0 && Tapellido.getText().length() == 0 && Trut.getText().length() > 0)
+        {
+             query="SELECT * FROM USUARIO WHERE (nombre LIKE '"+Tnombre.getText()+"%') "
+                     + "AND (run_usuario LIKE '"+Trut.getText()+"%') ";
+             cargar_usuario(query);
+        }
+          if(Tnombre.getText().length() == 0 && Tapellido.getText().length() > 0 && Trut.getText().length() > 0)
+        {
+             query="SELECT * FROM USUARIO WHERE (apellido LIKE '"+Tapellido.getText()+"%') "
+                     + "AND (run_usuario LIKE '"+Trut.getText()+"%') ";
+             cargar_usuario(query);
+        }
+          //TODOS
          if(Tnombre.getText().length() > 0 && Tapellido.getText().length() > 0 && Trut.getText().length() > 0)
         {
              query="SELECT * FROM USUARIO WHERE (nombre LIKE '"+Tnombre.getText()+"%')"
@@ -397,7 +425,8 @@ public class Busqueda_usuario extends javax.swing.JFrame {
                      + "AND (rut LIKE '"+Trut.getText()+"%')";
              
              cargar_usuario(query);
-        }                                                                             
+        }
+                                                                                  
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void TnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TnombreKeyTyped

@@ -265,32 +265,117 @@ public class busqueda_inventario extends javax.swing.JFrame {
         }
         if( codigorsu.equals("") && !codigoutem.equals("") && !categoria.equals("") && !estado.equals(""))
         {
-             query="SELECT * FROM USUARIO WHERE (nombre LIKE '"+codigorsu.getText()+"%')";
+             query="SELECT * FROM ARTICULO WHERE (codigo LIKE '"+codigorsu.getText()+"%')";
              cargar_usuario(query);
         }
-       if( codigorsu.equals("") && codigoutem.equals("") && !categoria.equals("") && !estado.equals(""))
+         if( !codigorsu.equals("") && codigoutem.equals("") && !categoria.equals("") && !estado.equals(""))
         {
-             query="SELECT * FROM USUARIO WHERE (nombre LIKE '"+codigorsu.getText()+"%') "
-                     + "AND (apellido LIKE '"+codigoutem.getText()+"%') ";
+             query="SELECT * FROM USUARIO WHERE (codigoutem LIKE '"+codigoutem.getText()+"%')";
              cargar_usuario(query);
         }
-       if( codigorsu.equals("") && codigoutem.equals("") && categoria.equals("") && !estado.equals(""))
+          if( !codigorsu.equals("") && !codigoutem.equals("") && categoria.equals("") && !estado.equals(""))
         {
-             query="SELECT * FROM USUARIO WHERE (nombre LIKE '"+codigorsu.getText()+"%')"
-                     + " AND (apellido LIKE '"+codigoutem.getText()+"%') "
-                     + "AND (rut LIKE '"+categoria.getText()+"%')";
-             
+             query="SELECT * FROM USUARIO WHERE (categoria LIKE '"+categoria.getText()+"%')";
              cargar_usuario(query);
-        }       
-       if( codigorsu.equals("") && !codigoutem.equals("") && categoria.equals("") && estado.equals(""))
+        }
+           if( !codigorsu.equals("") && !codigoutem.equals("") && !categoria.equals("") && estado.equals(""))
         {
-             query="SELECT * FROM USUARIO WHERE (nombre LIKE '"+codigorsu.getText()+"%')"
-                     + " AND (apellido LIKE '"+codigoutem.getText()+"%') "
-                     + "AND (rut LIKE '"+categoria.getText()+"%')"
-                     + "AND (rut LIKE '"+estado.getText()+"%')";
-             
+             query="SELECT * FROM USUARIO WHERE (estado LIKE '"+estado.getText()+"%')";
              cargar_usuario(query);
-        }     
+        }
+        
+       //DOS TERMINOS DE BUSQUEDA 
+        //AB
+        if( codigorsu.equals("") && codigoutem.equals("") && !categoria.equals("") && !estado.equals(""))
+        {
+            query="SELECT * FROM ARTICULO WHERE (codigo LIKE '"+codigorsu.getText()+"%') "
+            + "AND (codigoutem LIKE '"+codigoutem.getText()+"%') ";
+            cargar_usuario(query);
+        }
+        //AC
+       if( codigorsu.equals("") && !codigoutem.equals("") && categoria.equals("") && !estado.equals(""))
+        {
+            query="SELECT * FROM ARTICULO WHERE (codigo LIKE '"+codigorsu.getText()+"%') "
+            + "AND (categoria LIKE '"+categoria.getText()+"%') ";
+            cargar_usuario(query);
+        }
+        //AD
+        if( codigorsu.equals("") && !codigoutem.equals("") && !categoria.equals("") && estado.equals(""))
+        {
+            query="SELECT * FROM ARTICULO WHERE (codigo LIKE '"+codigorsu.getText()+"%') "
+            + "AND (estado LIKE '"+estado.getText()+"%') ";
+            cargar_usuario(query);
+        }
+        //BC
+        if( !codigorsu.equals("") && codigoutem.equals("") && categoria.equals("") && !estado.equals(""))
+        {
+            query="SELECT * FROM ARTICULO WHERE (codigoutem LIKE '"+codigoutem.getText()+"%') "
+            + "AND (categoria LIKE '"+categoria.getText()+"%') ";
+            cargar_usuario(query);
+        }
+        //BD
+        if( !codigorsu.equals("") && codigoutem.equals("") && !categoria.equals("") && estado.equals(""))
+        {
+           query="SELECT * FROM ARTICULO WHERE (codigoutem LIKE '"+codigoutem.getText()+"%') "
+            + "AND (estado LIKE '"+estado.getText()+"%') ";
+            cargar_usuario(query);
+        }
+        //CD
+        if( !codigorsu.equals("") && !codigoutem.equals("") && categoria.equals("") && estado.equals(""))
+        {
+            query="SELECT * FROM ARTICULO WHERE (categoria LIKE '"+categoria.getText()+"%') "
+            + "AND (estado LIKE '"+estado.getText()+"%') ";
+            cargar_usuario(query);
+        }
+        //TRES TERMINOS DE BUSQUEDA
+        /*
+         * ABC
+         * ABD
+         * BCD
+         * ACD
+         */
+        if( codigorsu.equals("") && codigoutem.equals("") && categoria.equals("") && !estado.equals(""))
+        {
+            query="SELECT * FROM ARTICULO WHERE (codigo LIKE '"+codigorsu.getText()+"%')"
+            + " AND (codigoutem LIKE '"+codigoutem.getText()+"%') "
+            + "AND (categoria LIKE '"+categoria.getText()+"%')";
+
+            cargar_usuario(query);
+        }
+        if( codigorsu.equals("") && codigoutem.equals("") && !categoria.equals("") && estado.equals(""))
+        {
+            query="SELECT * FROM ARTICULO WHERE (codigo LIKE '"+codigorsu.getText()+"%')"
+            + " AND (codigoutem LIKE '"+codigoutem.getText()+"%') "
+            + "AND (estado LIKE '"+estado.getText()+"%')";
+
+            cargar_usuario(query);
+        }
+        if( !codigorsu.equals("") && codigoutem.equals("") && categoria.equals("") && estado.equals(""))
+        {
+            query="SELECT * FROM ARTICULO WHERE (categoria LIKE '"+categoria.getText()+"%')"
+            + " AND (codigoutem LIKE '"+codigoutem.getText()+"%') "
+            + "AND (estado LIKE '"+estado.getText()+"%')";
+
+            cargar_usuario(query);
+        }
+        if( codigorsu.equals("") && !codigoutem.equals("") && categoria.equals("") && estado.equals(""))
+        {
+             query="SELECT * FROM ARTICULO WHERE (categoria LIKE '"+categoria.getText()+"%')"
+            + " AND (codigorsu LIKE '"+codigorsu.getText()+"%') "
+            + "AND (estado LIKE '"+estado.getText()+"%')";
+
+            cargar_usuario(query);
+        }
+        //CUATRO TERMINOS
+        if( codigorsu.equals("") && codigoutem.equals("") && categoria.equals("") && estado.equals(""))
+        {
+            query="SELECT * FROM ARTICULO WHERE (codigo LIKE '"+codigorsu.getText()+"%')"
+            + " AND (codigoutem LIKE '"+codigoutem.getText()+"%') "
+            + "AND (categoria LIKE '"+categoria.getText()+"%')"
+            + "AND (estado LIKE '"+estado.getText()+"%')";
+
+            cargar_usuario(query);
+        }
     
     }//GEN-LAST:event_BuscarActionPerformed
 
