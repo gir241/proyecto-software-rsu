@@ -346,7 +346,7 @@ public class Inventario extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -610,7 +610,7 @@ public class Inventario extends javax.swing.JFrame {
         // TODO add your handling code here:
         int limite = 40;
         char car = evt.getKeyChar();
-        if (!(car<'0' || car>'9')||jTextField_Descripcion1.getText().length() == limite){evt.consume();}
+        if (jTextField_Descripcion1.getText().length() == limite){evt.consume();}
     }//GEN-LAST:event_jTextField_Descripcion1KeyTyped
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

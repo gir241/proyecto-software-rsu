@@ -33,7 +33,7 @@ public String rut;
     
     public Boolean validacion(){
     
-        if(!jTextField_Nombres.getText().toString().isEmpty() || !jTextField_Apellidos.getText().toString().isEmpty() || !jTextField_email.getText().toString().isEmpty()) 
+        if(jTextField_Nombres.getText().toString().isEmpty() || jTextField_Apellidos.getText().toString().isEmpty() || jTextField_email.getText().toString().isEmpty()) 
         {return false;}
         //if(!jTextField_Apellidos.getText().toString().isEmpty()) {return false;}
         //if(!jTextField_email.getText().toString().isEmpty()){ return false;}
@@ -488,10 +488,11 @@ public String rut;
             Logger.getLogger(Crear_admin.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-   if(validacion())
+   if(validacion()== false)
    {
        JOptionPane.showMessageDialog(this," Uno o mas campos obligatorios (*) se encuentran vacios");
-       continuar = false;}
+       continuar = false;
+   }
         
     if(rud.getText().equals("")){
       JOptionPane.showMessageDialog(this,"Debe completar el run");
@@ -512,7 +513,7 @@ public String rut;
            }
     }
 
-    if(continuar){
+    if(continuar==true){
         actualizar_variables();
        Agregar_admin();
        }

@@ -33,12 +33,11 @@ public class Crear_usuario extends javax.swing.JFrame {
 
     
     public Boolean validacion(){
-        
-        if(!jTextField_Nombres.getText().toString().isEmpty()) {return false;}
-        if(!jTextField_Apellidos.getText().toString().isEmpty()) {return false;}
-        if(!jTextField_email.getText().toString().isEmpty()){ return false;}
-        
-        return true;
+ if(jTextField_Nombres.getText().toString().isEmpty() || jTextField_Apellidos.getText().toString().isEmpty() || jTextField_email.getText().toString().isEmpty()) 
+        {return false;}
+        //if(!jTextField_Apellidos.getText().toString().isEmpty()) {return false;}
+        //if(!jTextField_email.getText().toString().isEmpty()){ return false;}
+        else {return true;}
     }
     
     public void actualizar_variables(){
@@ -444,8 +443,10 @@ public class Crear_usuario extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(this,"Debe completar el run");
       continuar= false;
     }
-     if(validacion())
-   {continuar = false;}
+     if(validacion()==false)
+   {
+       JOptionPane.showMessageDialog(this," Uno o mas campos obligatorios (*) se encuentran vacios");
+       continuar = false;}
     else{
         int rut = Integer.parseInt(rud.getText());//parseo tipo entero el run y guardo en rut
         String verificador = dv.getText();//guardo digito verificador en digito del tipo string
@@ -461,7 +462,7 @@ public class Crear_usuario extends javax.swing.JFrame {
            }
     }
 
-    if(continuar){
+    if(continuar==true){
         actualizar_variables();
        Agregar_usuario();
        }
