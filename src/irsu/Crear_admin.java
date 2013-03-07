@@ -33,11 +33,11 @@ public String rut;
     
     public Boolean validacion(){
     
-        if(!jTextField_Nombres.getText().toString().isEmpty()) {return false;}
-        if(!jTextField_Apellidos.getText().toString().isEmpty()) {return false;}
-        if(!jTextField_email.getText().toString().isEmpty()){ return false;}
-        
-        return true;
+        if(!jTextField_Nombres.getText().toString().isEmpty() || !jTextField_Apellidos.getText().toString().isEmpty() || !jTextField_email.getText().toString().isEmpty()) 
+        {return false;}
+        //if(!jTextField_Apellidos.getText().toString().isEmpty()) {return false;}
+        //if(!jTextField_email.getText().toString().isEmpty()){ return false;}
+        else {return true;}
     }
     
     public void actualizar_variables(){
@@ -490,7 +490,7 @@ public String rut;
         
    if(validacion())
    {
-       JOptionPane.showMessageDialog(this,"Uno o mas campos obligatorios (*) se encuentran vacios");
+       JOptionPane.showMessageDialog(this," Uno o mas campos obligatorios (*) se encuentran vacios");
        continuar = false;}
         
     if(rud.getText().equals("")){

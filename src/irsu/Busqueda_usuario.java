@@ -422,7 +422,7 @@ public class Busqueda_usuario extends javax.swing.JFrame {
         {
              query="SELECT * FROM USUARIO WHERE (nombre LIKE '"+Tnombre.getText()+"%')"
                      + " AND (apellido LIKE '"+Tapellido.getText()+"%') "
-                     + "AND (rut LIKE '"+Trut.getText()+"%')";
+                     + "AND (run_usuario LIKE '"+Trut.getText()+"%')";
              
              cargar_usuario(query);
         }

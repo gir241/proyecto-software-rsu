@@ -130,13 +130,14 @@ public class Pedido_entrega extends javax.swing.JFrame {
             DefaultTableModel modelo = new DefaultTableModel();
              jTable2.setModel(modelo);
             //creamos la columnas de nuestra tabla:
-                 modelo.addColumn("CODIGO");
+                 modelo.addColumn("COD. RSU");
+                 modelo.addColumn("COD. UTEM");
                  modelo.addColumn("CATEGORIA");
                  modelo.addColumn("PRODUCTO");
                  modelo.addColumn("DESCRIPCION");
                  modelo.addColumn("ESTADO");
             //asigno el tamaño del arreglo co la cantidad de columnas:
-                Object[] filas = new Object[5];
+                Object[] filas = new Object[6];
             //escribo las filas:
 
                 int j = 0;
@@ -145,7 +146,7 @@ public class Pedido_entrega extends javax.swing.JFrame {
             {   
                 existencias = true;
                 //cantidad de columnas
-                 for (int i=0;i<5;i++)
+                 for (int i=0;i<6;i++)
                  {
                      filas[i] = rs.getObject(i+1);
                  }
@@ -196,7 +197,7 @@ public class Pedido_entrega extends javax.swing.JFrame {
       if(rs.next()){  
           resultado = rs.getString("estado");
            
-      if(resultado.equals("disponible") && formula.equals("prestado")){
+      if(resultado.equals("0") && formula.equals("1")){
           int valor = 0;
           rs = st.executeQuery("SELECT id_pedido FROM PEDIDO ORDER BY id_pedido DESC LIMIT 1");
          if(rs.next()){        
@@ -880,7 +881,7 @@ public class Pedido_entrega extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        SolicitaEntrega(jTextField_CodigoSol.getText().toString(),"prestado");
+        SolicitaEntrega(jTextField_CodigoSol.getText().toString(),"1");
         jTextField_CodigoSol.setText("");
         cargar_usuario(id_user);
         cargar_producto();
@@ -889,7 +890,7 @@ public class Pedido_entrega extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-         SolicitaEntrega(jTextField_CodigoEnt.getText().toString(),"disponible");
+         SolicitaEntrega(jTextField_CodigoEnt.getText().toString(),"0");
          jTextField_CodigoEnt.setText("");
          cargar_usuario(id_user);
              cargar_producto();

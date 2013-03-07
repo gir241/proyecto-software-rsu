@@ -624,8 +624,8 @@ public class Inventario extends javax.swing.JFrame {
       codigo_utem = jTextField_CodigoUTEM.getText();
         try {
             try {
-                if(!consulta.validar("codigo","ARTICULO","codigo",codigo )&& 
-                        !consulta.validar("codigoutem","ARTICULO","codigoutem",codigo_utem )  )
+                if(!consulta.validar("codigo","ARTICULO","codigo",codigo ) &&
+                      !consulta.validar("codigoutem","ARTICULO","codigoutem",codigo_utem )  )
                 {  
                 Carga_agregar();
                 Agregar_articulo();
