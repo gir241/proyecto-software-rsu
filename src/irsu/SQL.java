@@ -25,24 +25,23 @@ public class SQL{
        // CARGA INFORMACION SI BASE DE DATOS EXSITE 
       if(!rs.next()){  
         
-        st.executeUpdate("CREATE DATABASE rsu_inventario");
-        JOptionPane.showMessageDialog(null,"Base De Datos Creada Exitosamente", 
-                "alert", JOptionPane.OK_OPTION);
+        st.executeUpdate("CREATE DATABASE rsu_inventario");        
            // CARGA INFORMACION A LA BASE DE DATOS
          CrearTablas();
          CrearTrashTablas();
          carga_default();
+         JOptionPane.showMessageDialog(null,"Se a cargado una cuenta por defecto"
+                + "Rut 17.418.376-7  Contraseña 12345", 
+                "alert", JOptionPane.OK_OPTION);
          }  
    
       }
       catch (SQLException s){
 
           SQL_FORM error = new SQL_FORM();
-      JOptionPane.showMessageDialog(error,"error");
+      JOptionPane.showMessageDialog(error,"error al crear la base de datos");
 
         //SQL_FORM error = new SQL_FORM();
-      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
-
     }
       finally{
           rs.close();
@@ -88,18 +87,14 @@ public class SQL{
         st.executeUpdate(ARTICULO);
         
         st.executeUpdate(PEDIDO);
-                
-        JOptionPane.showMessageDialog(null,"tablas Creadas Exitosamente", 
-                "alert", JOptionPane.OK_OPTION);
+
          }  
       catch (SQLException s){
 
           SQL_FORM error = new SQL_FORM();
       JOptionPane.showMessageDialog(error,"error al crear tablas");
 
-        //SQL_FORM error = new SQL_FORM();
-      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
-
+      
     }
        finally{
           con.close();
@@ -137,10 +132,7 @@ public class SQL{
         
          st.executeUpdate(ADMIN);
         
-        st.executeUpdate(ARTICULO);                
-        
-        JOptionPane.showMessageDialog(null,"tablas Creadas Tablas Trash Exitosamente", 
-                "alert", JOptionPane.OK_OPTION);
+        st.executeUpdate(ARTICULO);                        
          }  
       catch (SQLException s){
 
@@ -174,17 +166,9 @@ public class SQL{
          ("jdbc:mysql://localhost/rsu_inventario","root",pass);
       try{
          st = con.createStatement();
-         st.executeUpdate("INSERT INTO ADMIN VALUES ('174183767','marco','molina','estudiante','santiago',"+
-                "'2130','3030303','30303030','los valdios 1030','marcotutu@hotmail.com',12345);");
-         st.executeUpdate("INSERT INTO USUARIO VALUES ('178350781','gonzalo','pradena','estudiante','santiago',"+
-                "'2130','3030303','30303030','los holos 1313','gonzalo@gmail.com');");
-         st.executeUpdate("INSERT INTO ARTICULO VALUES ('123456','PC','notebook','malo','disponible');");
-         st.executeUpdate("INSERT INTO ARTICULO VALUES ('123457','PC','notebook','bueno','disponible');");
-         st.executeUpdate("INSERT INTO PEDIDO VALUES ('0001','123456','178350781','11-12-12','12-12-12');");
-         st.executeUpdate("UPDATE ARTICULO SET ESTADO = 'prestado' WHERE codigo ='123456';");
-         
-        JOptionPane.showMessageDialog(null,"Datos agregados Exitosamente", 
-                "alert", JOptionPane.OK_OPTION);
+         st.executeUpdate("INSERT INTO ADMIN VALUES ('174183767','msX','msx','estudiante','santiago',"+
+                "'2130','3030303','30303030','los valdios 3030','msx@hotmail.com',12345);");        
+           
          }  
       catch (SQLException s){
 
@@ -260,10 +244,7 @@ public class SQL{
         }
      
     }
-     
-     
-     
-     public void EntregarProducto(String codigo){}
+                    
 }
     
     

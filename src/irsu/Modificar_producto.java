@@ -4,11 +4,14 @@
  */
 package irsu;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,12 +35,23 @@ public class Modificar_producto extends javax.swing.JFrame {
     String estado=null;
     
     public void actualizar_variables(){
-    String codigorsu=jcodigorsu.getText();
-    String codigoutem=jcodigoutem.getText();
-    String producto=jproducto.getText();
-    String descripcion=jdescripcion.getText();
-    String estado=jestado.getText();
+    codigorsu=jcodigorsu.getText();
+    codigoutem=jcodigoutem.getText();
+    producto=jproducto.getText();
+    descripcion=jdescripcion.getText();
+    estado=jestado.getText();
     
+    }
+    
+    public boolean validaciones()
+    {
+       if(jproducto.getText().toString().isEmpty() || 
+               jdescripcion.getText().toString().isEmpty() || jestado.getText().toString().isEmpty())
+       {
+           JOptionPane.showMessageDialog(null,"Debe llenar todos los campos");
+           return false;
+       }
+        return true;
     }
 
      public void Modificar_prod(){
@@ -170,6 +184,9 @@ public class Modificar_producto extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jproductoKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jproductoKeyTyped(evt);
+            }
         });
 
         jLabel13.setText("Producto ");
@@ -185,6 +202,12 @@ public class Modificar_producto extends javax.swing.JFrame {
         jLabel18.setText("Descripcion");
 
         jlabel1.setText("Codigo Utem");
+
+        jdescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jdescripcionKeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("Codigo Rsu");
 
@@ -202,13 +225,6 @@ public class Modificar_producto extends javax.swing.JFrame {
             }
         });
 
-        btncargar.setText("Cargar");
-        btncargar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncargarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -221,7 +237,7 @@ public class Modificar_producto extends javax.swing.JFrame {
                         .addComponent(btnguardar)
                         .addGap(18, 18, 18)
                         .addComponent(jButton5)
-                        .addGap(61, 61, 61))
+                        .addGap(42, 42, 42))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -242,10 +258,6 @@ public class Modificar_producto extends javax.swing.JFrame {
                                     .addComponent(jcodigorsu)))
                             .addComponent(jLabel13))
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btncargar)
-                .addGap(83, 83, 83))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,8 +267,6 @@ public class Modificar_producto extends javax.swing.JFrame {
                     .addComponent(jcodigorsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btncargar)
-                .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcodigoutem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlabel1))
@@ -272,28 +282,42 @@ public class Modificar_producto extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(btnguardar))
                 .addGap(34, 34, 34))
         );
 
+        btncargar.setText("Cargar");
+        btncargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(19, 19, 19)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btncargar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(btncargar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -306,8 +330,10 @@ public class Modificar_producto extends javax.swing.JFrame {
 
     private void jestadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jestadoKeyTyped
         // TODO add your handling code here:
+          int limite = 1;
         char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
-        if((car<'0' || car>'9')) {evt.consume();}
+        if((car<'0' || car>'1')||jestado.getText().length() == limite) 
+        {evt.consume();}
     }//GEN-LAST:event_jestadoKeyTyped
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -319,15 +345,53 @@ public class Modificar_producto extends javax.swing.JFrame {
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         // TODO add your handling code here:
+      if(validaciones()){
         actualizar_variables();
         Modificar_prod();
+      }
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btncargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncargarActionPerformed
-        // TODO add your handling code here:
-        codigorsu=jcodigorsu.getText();
-        Carga_articulo(codigorsu);
+        // TODO add your handling code here:       
+                 
+             SQL consulta = new SQL();
+        try {
+            try {
+                //CONSULTA SI NO ESTA
+                 codigorsu=jcodigorsu.getText();
+                if(consulta.validar("codigo","ARTICULO","codigo",codigorsu))
+                    {                    
+                     Carga_articulo(codigorsu);    
+                     jcodigorsu.setEditable(false);
+                     jcodigoutem.setEditable(false);
+                    }
+                else JOptionPane.showMessageDialog(null,"error en cargar datos");
+                               }
+             catch (SQLException ex) {
+                Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+        }                        
+        
+       
+                    
+     
     }//GEN-LAST:event_btncargarActionPerformed
+
+    private void jproductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jproductoKeyTyped
+        // TODO add your handling code here:
+        int limite = 23;
+        char car = evt.getKeyChar();
+        if (!(car<'0' || car>'9')||jproducto.getText().length() == limite){evt.consume();}
+    }//GEN-LAST:event_jproductoKeyTyped
+
+    private void jdescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jdescripcionKeyTyped
+        // TODO add your handling code here:
+        int limite = 40;
+        char car = evt.getKeyChar();
+        if (jdescripcion.getText().length() == limite){evt.consume();}
+    }//GEN-LAST:event_jdescripcionKeyTyped
 
     /**
      * @param args the command line arguments

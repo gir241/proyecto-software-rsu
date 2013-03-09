@@ -26,6 +26,16 @@ public class Logeo_admin extends javax.swing.JFrame {
      }
     public Logeo_admin() {
         initComponents();
+       CrearBdd();
+        
+    }
+    
+    public void CrearBdd(){
+    
+        SQL sql = new SQL();
+
+        sql.CrearBDD();// TODO add your handling code here:
+    
     }
 
     /**
@@ -131,8 +141,7 @@ public class Logeo_admin extends javax.swing.JFrame {
                         .add(0, 0, Short.MAX_VALUE))))
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jSeparator1)
-                .addContainerGap())
+                .add(jSeparator1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -147,7 +156,7 @@ public class Logeo_admin extends javax.swing.JFrame {
                 .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(rud, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(dv, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))

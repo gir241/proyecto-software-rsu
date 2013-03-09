@@ -4,6 +4,7 @@
  */
 package irsu;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,6 +36,7 @@ public class Modificar_usuario extends javax.swing.JFrame {
     String contraseña=null;
     String pass="inforsu";
     Boolean isAdmin = false;
+    Boolean guardar = true;
     
     /**
      * Creates new form Modificar_usuario
@@ -57,7 +59,35 @@ public class Modificar_usuario extends javax.swing.JFrame {
     email = jTextField_email.getText();
     
     }
+     
+     public boolean validacionesUsuario(){
+         if(jTetxField_Nombre.getText().toString().isEmpty() || jTextField_Apellido.getText().toString().isEmpty() ||
+              jTextField_email.getText().toString().isEmpty() )
+         {
+             JOptionPane.showMessageDialog(null,"Falta completar uno o mas campos obligatorios (*)");
+             return false;
+         }
+         return true;
+     }
     
+     public boolean validacionesAdmin(){
+         
+      if(jPasswordField_Contraseña.getPassword().length>0 && jPasswordField_RepContraseña.getPassword().length>0 ){   
+        String a =  new String(jPasswordField_Contraseña.getPassword());
+        String b =  new String(jPasswordField_RepContraseña.getPassword());
+        validado_contrasena ctr = new validado_contrasena();
+        if(ctr.ctr(a, b)== false)
+        {
+          JOptionPane.showMessageDialog(this,"Contraseñas Distintas");  
+          return false;
+        }
+      }
+      else{
+      JOptionPane.showMessageDialog(this,"Debe completar las contraseñas");  
+      return false;
+      }
+         return true;
+     }
     //    st = con.createStatement();            
       //    st.executeUpdate("UPDATE ARTICULO SET estado = '"+formula+"' where codigo ='"+codigo+"'");
  
@@ -104,7 +134,7 @@ public class Modificar_usuario extends javax.swing.JFrame {
          ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
       try{
         st = con.createStatement();
-        st.executeUpdate("UPDATE ADMIN SET run_usuario='"+rut+ "',nombre='"+nombre+
+        st.executeUpdate("UPDATE ADMIN SET run_admin='"+rut+ "',nombre='"+nombre+
                 "',apellido='"+apellido+"',actividad='"+actividad+"',comuna='"+comuna+"',carrera='"+carrera+ 
                 "',telefono='"+telefono +"',celular='"+celular+"',direccion='"+direccion+"',email='"+ email+"'"
                 + ",contraseña='"+contraseña+"';");           
@@ -114,7 +144,6 @@ public class Modificar_usuario extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(error,"error al modificar usuario");
 
       JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
-
     }
        finally{
           st.close();
@@ -143,13 +172,9 @@ public class Modificar_usuario extends javax.swing.JFrame {
         
        rs = st.executeQuery("Select "+consulta+" from usuario where "+condicion       
         + " = '"+variable+"'");
-        
-     
-   
+                
         if(rs.next()){
-               auxiliar=rs.getString(consulta);
-           
-           
+               auxiliar=rs.getString(consulta);                      
         }
         else
             auxiliar = " ";
@@ -247,6 +272,7 @@ public class Modificar_usuario extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jPasswordField_RepContraseña = new javax.swing.JPasswordField();
         jPasswordField_Contraseña = new javax.swing.JPasswordField();
+        jLabel_email = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -254,9 +280,12 @@ public class Modificar_usuario extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_ApellidoKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_ApellidoKeyTyped(evt);
+            }
         });
 
-        jLabel13.setText("Apellido:");
+        jLabel13.setText("(*)Apellido:");
 
         jLabel14.setText("Actividad:");
 
@@ -274,6 +303,9 @@ public class Modificar_usuario extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_CelularKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_CelularKeyTyped(evt);
+            }
         });
 
         jTextField_email.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -282,7 +314,7 @@ public class Modificar_usuario extends javax.swing.JFrame {
             }
         });
 
-        jLabel21.setText("email:");
+        jLabel21.setText("(*)Email:");
 
         jLabel18.setText("Carrera:");
 
@@ -302,7 +334,25 @@ public class Modificar_usuario extends javax.swing.JFrame {
 
         jLabel17.setText("Comuna:");
 
-        jLabel1.setText("Nombre:");
+        jLabel1.setText("(*)Nombre:");
+
+        run.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                runKeyTyped(evt);
+            }
+        });
+
+        jTetxField_Nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTetxField_NombreKeyTyped(evt);
+            }
+        });
+
+        jTextField_Carrera.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_CarreraKeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("Rut:");
 
@@ -327,7 +377,13 @@ public class Modificar_usuario extends javax.swing.JFrame {
             }
         });
 
-        jLabel22.setText("Contraseña:");
+        dv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dvKeyTyped(evt);
+            }
+        });
+
+        jLabel22.setText("(*)Contraseña:");
 
         jLabel23.setText("Repetir contraseña:");
 
@@ -381,54 +437,6 @@ public class Modificar_usuario extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(19, 19, 19)
-                                .addComponent(jTextField_Actividad, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addGap(24, 24, 24)
-                                .addComponent(jTextField_Comuna, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel21)
-                                    .addGap(38, 38, 38)
-                                    .addComponent(jTextField_email))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel19)
-                                        .addComponent(jLabel16))
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                            .addGap(20, 20, 20)
-                                            .addComponent(jTextField_Celular, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jTextField_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel20)
-                                    .addGap(21, 21, 21)
-                                    .addComponent(jTextField_Direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jLabel3))
-                                .addGap(24, 24, 24)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(run, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(dv, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jTextField_Apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTetxField_Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                            .addComponent(jTextField_Carrera)))))
-                            .addComponent(jLabel13))
-                        .addContainerGap(31, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnguardar)
@@ -437,11 +445,67 @@ public class Modificar_usuario extends javax.swing.JFrame {
                         .addGap(61, 61, 61))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(paneladmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btncargar)
-                .addGap(101, 101, 101))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel18)
+                                    .addComponent(jLabel3))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(35, 35, 35)
+                                        .addComponent(run, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(dv, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jTetxField_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField_Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(1, 1, 1)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                                .addComponent(btncargar))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextField_Apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel20)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextField_Direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel14)
+                                            .addComponent(jLabel17))
+                                        .addGap(19, 19, 19)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextField_Comuna, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField_Actividad, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel21)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel19)
+                                                    .addComponent(jLabel16))
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(jTextField_Telefono))
+                                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                                        .addGap(20, 20, 20)
+                                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                            .addComponent(jTextField_email, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                                            .addComponent(jTextField_Celular))))))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel_email)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,10 +514,9 @@ public class Modificar_usuario extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(run, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(dv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btncargar)
-                .addGap(20, 20, 20)
+                    .addComponent(dv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btncargar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTetxField_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -477,18 +540,19 @@ public class Modificar_usuario extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(jTextField_Direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 14, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jTextField_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(jTextField_Celular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(jTextField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_email))
                 .addGap(12, 12, 12)
                 .addComponent(paneladmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -503,16 +567,16 @@ public class Modificar_usuario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -525,18 +589,33 @@ public class Modificar_usuario extends javax.swing.JFrame {
 
     private void jTextField_ActividadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ActividadKeyTyped
         // TODO add your handling code here:
-        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
-        if((car<'0' || car>'9')) {evt.consume();}
+         int limite = 15;
+        char car = evt.getKeyChar();
+        if (!(car<'0' || car>'9')||jTetxField_Nombre.getText().length() == limite){evt.consume();}
     }//GEN-LAST:event_jTextField_ActividadKeyTyped
 
     private void jTextField_CelularKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_CelularKeyReleased
-        // TODO add your handling code here:
-        jTextField_Celular.setText(jTextField_Celular.getText().toUpperCase());//transorma a mayusculas
+        // TODO add your handling code here:      
     }//GEN-LAST:event_jTextField_CelularKeyReleased
 
     private void jTextField_emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_emailKeyReleased
-        // TODO add your handling code here:
-        jTextField_email.setText(jTextField_email.getText().toUpperCase());//transorma a mayusculas
+        // TODO add your handling code here:       
+         // TODO add your handling code here:
+          validaMail valida = new validaMail();
+       //jLabel_email.setText( valida.Alerta(valida.isEmail(jTextField_email.getText())));
+         boolean a = valida.isEmail(jTextField_email.getText());
+         if(a==true)
+        {
+            jLabel_email.setForeground(Color.green);
+            jLabel_email.setText("email Correcto");                  
+        }
+        else
+        {          
+            jLabel_email.setForeground(Color.red);
+            jLabel_email.setText("email Incorrecto"); 
+            guardar=false;
+        }   
+        
     }//GEN-LAST:event_jTextField_emailKeyReleased
 
     private void jTextField_ComunaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ComunaKeyReleased
@@ -545,8 +624,12 @@ public class Modificar_usuario extends javax.swing.JFrame {
 
     private void jTextField_TelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_TelefonoKeyTyped
         // TODO add your handling code here:
+        
+        int limite = 10;
         char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
-        if((car<'0' || car>'9')) {evt.consume();}
+        if((car<'0' || car>'9')||jTextField_Telefono.getText().length() == limite) 
+        {evt.consume();}
+        
     }//GEN-LAST:event_jTextField_TelefonoKeyTyped
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -560,11 +643,23 @@ public class Modificar_usuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         
                     actualizar_variables();
-                    Modificar_user();
-                  if(isAdmin){
-                     contraseña = new String(jPasswordField_Contraseña.getPassword());
-                    Modificar_admin();
-                    }
+                       if(isAdmin){
+                          if(guardar)   
+                             {
+                                  if(validacionesUsuario() && validacionesAdmin())
+                                    {
+                                       contraseña = new String(jPasswordField_Contraseña.getPassword());
+                                       Modificar_user();                                       
+                                       Modificar_admin();
+                                     }
+                             }
+                       }      
+                       else
+                           if(guardar){
+                            if(validacionesUsuario()){
+                                Modificar_user();                                 
+                               }
+                           }
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btncargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncargarActionPerformed
@@ -577,6 +672,8 @@ public class Modificar_usuario extends javax.swing.JFrame {
                 if(consulta.validar("run_usuario","USUARIO","run_usuario",rut))
                     {
                     cargausuario(rut);
+                    run.setEditable(false);
+                    dv.setEditable(false);
                      if(consulta.validar("run_admin","ADMIN","run_admin",rut))
                      {
                         paneladmin.setVisible(true);
@@ -609,6 +706,53 @@ public class Modificar_usuario extends javax.swing.JFrame {
         char car = evt.getKeyChar();
         if (car==' ' ||jPasswordField_Contraseña.getPassword().length == limite){evt.consume();}
     }//GEN-LAST:event_jPasswordField_ContraseñaKeyTyped
+
+    private void jTetxField_NombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTetxField_NombreKeyTyped
+        // TODO add your handling code here:
+         int limite = 23;
+        char car = evt.getKeyChar();
+        if (!(car<'0' || car>'9')||jTetxField_Nombre.getText().length() == limite){evt.consume();}
+   
+    }//GEN-LAST:event_jTetxField_NombreKeyTyped
+
+    private void jTextField_ApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ApellidoKeyTyped
+        // TODO add your handling code here:
+         int limite = 23;
+        char car = evt.getKeyChar();
+        if (!(car<'0' || car>'9')||jTetxField_Nombre.getText().length() == limite){evt.consume();}
+    }//GEN-LAST:event_jTextField_ApellidoKeyTyped
+
+    private void jTextField_CarreraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_CarreraKeyTyped
+        // TODO add your handling code here:
+         int limite = 8;
+        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')||jTextField_Telefono.getText().length() == limite) 
+        {evt.consume();}
+    }//GEN-LAST:event_jTextField_CarreraKeyTyped
+
+    private void runKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_runKeyTyped
+        // TODO add your handling code here:
+         int limite = 8;
+        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')||jTextField_Telefono.getText().length() == limite) 
+        {evt.consume();}
+    }//GEN-LAST:event_runKeyTyped
+
+    private void dvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dvKeyTyped
+        // TODO add your handling code here:
+        int limite = 1;
+        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')||jTextField_Telefono.getText().length() == limite) 
+        {evt.consume();}
+    }//GEN-LAST:event_dvKeyTyped
+
+    private void jTextField_CelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_CelularKeyTyped
+        // TODO add your handling code here:
+       int limite = 15;
+        char car = evt.getKeyChar();//bloque el jtextfiel para que acepte solo numeros
+        if((car<'0' || car>'9')||jTextField_Celular.getText().length() == limite) 
+        {evt.consume();}
+    }//GEN-LAST:event_jTextField_CelularKeyTyped
 
     /**
      * @param args the command line arguments
@@ -661,6 +805,7 @@ public class Modificar_usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel_email;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField jPasswordField_Contraseña;
     private javax.swing.JPasswordField jPasswordField_RepContraseña;
