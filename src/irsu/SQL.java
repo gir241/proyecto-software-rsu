@@ -65,11 +65,7 @@ public class SQL{
     String ADMIN = "CREATE TABLE ADMIN (run_admin VARCHAR(20) NOT NULL PRIMARY KEY, nombre VARCHAR(45)," +
           "apellido VARCHAR(45),actividad varchar(20),comuna varchar(30),carrera varchar(10) ,"+
           "telefono varchar(15),celular varchar(20),direccion VARCHAR(45),email varchar(50),contraseña varchar(50));";
-    
-    String PROYECTO = "CREATE TABLE PROYECTO (codigo_proyecto varchar(20)NOT NULL PRIMARY KEY,nombre VARCHAR(20) , "
-            + "encargado varchar(20),descripcion VARCHAR(45),"
-            + "presupuesto varchar(30),estado varchar(20),FOREIGN KEY(encargado) REFERENCES ADMIN(run_admin) );";
-    
+      
     String ARTICULO = "CREATE TABLE ARTICULO (codigo VARCHAR(40) NOT NULL PRIMARY KEY,codigoutem VARCHAR(40), categoria VARCHAR(45)," +
           "producto VARCHAR(50), descripcion varchar(50),estado VARCHAR(12));";
     
@@ -87,9 +83,7 @@ public class SQL{
         
         st.executeUpdate(USER);
         
-        st.executeUpdate(ADMIN);
-        
-        st.executeUpdate(PROYECTO);
+        st.executeUpdate(ADMIN);        
          
         st.executeUpdate(ARTICULO);
         

@@ -54,6 +54,39 @@ public String rut;
     contraseña = new String(jPasswordField_Contraseña.getPassword());
     }
     
+    
+     public void Agregar_usuario(){
+        
+    Connection con = null;
+    Statement st = null;
+    try{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+         con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+      try{
+        st = con.createStatement();
+        st.executeUpdate("INSERT INTO USUARIO VALUES ('"+rut+ "','"+nombre+
+                "','"+apellido+"','"+actividad+"','"+comuna+"','"+carrera+ 
+                "','"+telefono +"','"+celular+"','"+direccion+"','"+ email+"');");
+         }  
+      catch (SQLException s){
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error al crear usuario");
+
+      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
+
+    }
+       finally{
+          st.close();
+          con.close();
+      }
+  }
+        catch (Exception e){
+        e.printStackTrace();
+    }
+    
+    }
+    
     public void Agregar_admin(){
         
     Statement st = null;
@@ -516,6 +549,7 @@ public String rut;
     if(continuar==true){
         actualizar_variables();
        Agregar_admin();
+       Agregar_usuario();
        }
     }//GEN-LAST:event_jButton_GuardarActionPerformed
 

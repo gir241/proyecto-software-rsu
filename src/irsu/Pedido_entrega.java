@@ -413,7 +413,6 @@ public class Pedido_entrega extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(840, 717));
 
         jLabel6.setText("Informatica Responsabilidad Social Universitaria");
 
