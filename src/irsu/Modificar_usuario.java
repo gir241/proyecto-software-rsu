@@ -4,11 +4,14 @@
  */
 package irsu;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,13 +32,16 @@ public class Modificar_usuario extends javax.swing.JFrame {
     String celular=null;
     String direccion=null;
     String email=null;
+    String contraseña=null;
     String pass="inforsu";
+    Boolean isAdmin = false;
     
     /**
      * Creates new form Modificar_usuario
      */
     public Modificar_usuario() {
         initComponents();
+        paneladmin.setVisible(false);
     }
     
      public void actualizar_variables(){
@@ -49,6 +55,7 @@ public class Modificar_usuario extends javax.swing.JFrame {
     celular = jTextField_Celular.getText();
     direccion = jTextField_Direccion.getText();
     email = jTextField_email.getText();
+    
     }
     
     //    st = con.createStatement();            
@@ -69,6 +76,38 @@ public class Modificar_usuario extends javax.swing.JFrame {
                 "',telefono='"+telefono +"',celular='"+celular+"',direccion='"+direccion+"',email='"+ email+"';");
         JOptionPane.showMessageDialog(null,"Datos modificados Exitosamente", 
                 "alert", JOptionPane.OK_OPTION);
+         }  
+      catch (SQLException s){
+          SQL_FORM error = new SQL_FORM();
+      JOptionPane.showMessageDialog(error,"error al modificar usuario");
+
+      JOptionPane.showMessageDialog(error,s, "alert", JOptionPane.ERROR_MESSAGE);
+
+    }
+       finally{
+          st.close();
+          con.close();
+      }
+  }
+        catch (Exception e){
+        e.printStackTrace();
+    }
+    
+    }
+      public void Modificar_admin(){
+        
+    Connection con = null;
+    Statement st = null;
+    try{
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+         con = DriverManager.getConnection
+         ("jdbc:mysql://localhost/rsu_inventario","root","inforsu");
+      try{
+        st = con.createStatement();
+        st.executeUpdate("UPDATE ADMIN SET run_usuario='"+rut+ "',nombre='"+nombre+
+                "',apellido='"+apellido+"',actividad='"+actividad+"',comuna='"+comuna+"',carrera='"+carrera+ 
+                "',telefono='"+telefono +"',celular='"+celular+"',direccion='"+direccion+"',email='"+ email+"'"
+                + ",contraseña='"+contraseña+"';");           
          }  
       catch (SQLException s){
           SQL_FORM error = new SQL_FORM();
@@ -203,10 +242,14 @@ public class Modificar_usuario extends javax.swing.JFrame {
         btnguardar = new javax.swing.JButton();
         btncargar = new javax.swing.JButton();
         dv = new javax.swing.JTextField();
+        paneladmin = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jPasswordField_RepContraseña = new javax.swing.JPasswordField();
+        jPasswordField_Contraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField_Apellido.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_Apellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_ApellidoKeyReleased(evt);
@@ -219,7 +262,6 @@ public class Modificar_usuario extends javax.swing.JFrame {
 
         jLabel16.setText("Telefono:");
 
-        jTextField_Actividad.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_Actividad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField_ActividadKeyTyped(evt);
@@ -228,14 +270,12 @@ public class Modificar_usuario extends javax.swing.JFrame {
 
         jLabel20.setText("Direccion:");
 
-        jTextField_Celular.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_Celular.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_CelularKeyReleased(evt);
             }
         });
 
-        jTextField_email.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_email.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_emailKeyReleased(evt);
@@ -246,14 +286,12 @@ public class Modificar_usuario extends javax.swing.JFrame {
 
         jLabel18.setText("Carrera:");
 
-        jTextField_Comuna.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_Comuna.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_ComunaKeyReleased(evt);
             }
         });
 
-        jTextField_Telefono.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_Telefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField_TelefonoKeyTyped(evt);
@@ -265,14 +303,6 @@ public class Modificar_usuario extends javax.swing.JFrame {
         jLabel17.setText("Comuna:");
 
         jLabel1.setText("Nombre:");
-
-        run.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTetxField_Nombre.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTextField_Direccion.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTextField_Carrera.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setText("Rut:");
 
@@ -297,7 +327,52 @@ public class Modificar_usuario extends javax.swing.JFrame {
             }
         });
 
-        dv.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Contraseña:");
+
+        jLabel23.setText("Repetir contraseña:");
+
+        jPasswordField_RepContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPasswordField_RepContraseñaKeyTyped(evt);
+            }
+        });
+
+        jPasswordField_Contraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPasswordField_ContraseñaKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout paneladminLayout = new javax.swing.GroupLayout(paneladmin);
+        paneladmin.setLayout(paneladminLayout);
+        paneladminLayout.setHorizontalGroup(
+            paneladminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneladminLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(paneladminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneladminLayout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPasswordField_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(paneladminLayout.createSequentialGroup()
+                        .addComponent(jLabel23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(jPasswordField_RepContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        paneladminLayout.setVerticalGroup(
+            paneladminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneladminLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(paneladminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPasswordField_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneladminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(jPasswordField_RepContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -356,27 +431,29 @@ public class Modificar_usuario extends javax.swing.JFrame {
                         .addContainerGap(31, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnguardar)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton5)
-                                .addGap(61, 61, 61))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(btncargar)
-                                .addGap(100, 100, 100))))))
+                        .addComponent(btnguardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5)
+                        .addGap(61, 61, 61))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(paneladmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btncargar)
+                .addGap(101, 101, 101))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(run, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(dv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btncargar)
-                .addGap(22, 22, 22)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTetxField_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -388,7 +465,7 @@ public class Modificar_usuario extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(jTextField_Carrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_Actividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
@@ -400,7 +477,7 @@ public class Modificar_usuario extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(jTextField_Direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jTextField_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -412,11 +489,13 @@ public class Modificar_usuario extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(jTextField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(12, 12, 12)
+                .addComponent(paneladmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(btnguardar))
-                .addGap(34, 34, 34))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -424,14 +503,14 @@ public class Modificar_usuario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(30, 30, 30)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -479,15 +558,57 @@ public class Modificar_usuario extends javax.swing.JFrame {
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         // TODO add your handling code here:
-        actualizar_variables();
-        Modificar_user();
+        
+                    actualizar_variables();
+                    Modificar_user();
+                  if(isAdmin){
+                     contraseña = new String(jPasswordField_Contraseña.getPassword());
+                    Modificar_admin();
+                    }
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btncargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncargarActionPerformed
         // TODO add your handling code here:
         rut=run.getText() + dv.getText();
-        cargausuario(rut);
+             SQL consulta = new SQL();
+        try {
+            try {
+                //CONSULTA SI NO ESTA
+                if(consulta.validar("run_usuario","USUARIO","run_usuario",rut))
+                    {
+                    cargausuario(rut);
+                     if(consulta.validar("run_admin","ADMIN","run_admin",rut))
+                     {
+                        paneladmin.setVisible(true);
+                        isAdmin=true;
+                     
+                     }
+                    }
+                else JOptionPane.showMessageDialog(null,"error en cargar datos");
+                               }
+             catch (SQLException ex) {
+                Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        
     }//GEN-LAST:event_btncargarActionPerformed
+
+    private void jPasswordField_RepContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField_RepContraseñaKeyTyped
+        // TODO add your handling code here:
+        int limite = 15;
+        char car = evt.getKeyChar();
+        if (car==' '||jPasswordField_RepContraseña.getPassword().length == limite){evt.consume();}
+    }//GEN-LAST:event_jPasswordField_RepContraseñaKeyTyped
+
+    private void jPasswordField_ContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField_ContraseñaKeyTyped
+        // TODO add your handling code here:
+        int limite = 15;
+        char car = evt.getKeyChar();
+        if (car==' ' ||jPasswordField_Contraseña.getPassword().length == limite){evt.consume();}
+    }//GEN-LAST:event_jPasswordField_ContraseñaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -537,8 +658,12 @@ public class Modificar_usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField jPasswordField_Contraseña;
+    private javax.swing.JPasswordField jPasswordField_RepContraseña;
     private javax.swing.JTextField jTetxField_Nombre;
     private javax.swing.JTextField jTextField_Actividad;
     private javax.swing.JTextField jTextField_Apellido;
@@ -548,6 +673,7 @@ public class Modificar_usuario extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_Direccion;
     private javax.swing.JTextField jTextField_Telefono;
     private javax.swing.JTextField jTextField_email;
+    private javax.swing.JPanel paneladmin;
     private javax.swing.JTextField run;
     // End of variables declaration//GEN-END:variables
 }
