@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -91,6 +92,8 @@ public class Crear_usuario extends javax.swing.JFrame {
      */
     public Crear_usuario() {
         initComponents();
+        setLocationRelativeTo(null);
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
           Fecha iniciar = new Fecha();
           jLabel_Fecha.setText(iniciar.fechaActual()); 
     }
